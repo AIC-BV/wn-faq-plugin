@@ -3,7 +3,7 @@
 Create Frequently Asked Questions with ease!
 These can be translated if you are using [Winter.Translate](https://github.com/wintercms/wn-translate-plugin).
 
-Note that if you are NOT using Winter.Translate, everything will work exactly the same but the 'Translated FAQs only' will be useless.
+Note that if you are NOT using Winter.Translate, everything will work exactly the same but the 'Translated FAQs only' checkbox will be useless.
 
 Note:
 
