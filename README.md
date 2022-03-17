@@ -42,6 +42,9 @@ With the FAQ plugin, you can:
     - Created at (ascending and descending)
 - Choose which categories you wish to display
     - Your own created category
+    - Your own other created category
+    - Your own other other created category
+    - ...
     - All
 - Choose which FAQs type you wish to display
     - Featured
