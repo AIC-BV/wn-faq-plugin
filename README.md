@@ -83,7 +83,7 @@ A FAQ exists out of the following variables:
 - created_at
 - updated_at
 
-In the component itself you can use the following variables (note that you should prepend them with [{{ `__SELF__` }}](https://wintercms.com/docs/plugin/components#referencing-self) if you have multiple FAQ components on one page:  
+In the component itself you can use the following variables (note that you should prepend them with [{{ `__SELF__` }}](https://wintercms.com/docs/plugin/components#referencing-self) if you have multiple FAQ components on one page):  
 
 - faqs (array of FAQs)
 - isSearch (if true, searchbox is enabled)
