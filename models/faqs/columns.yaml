@@ -1,0 +1,51 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    id:
+        label: aic.faq::lang.form.id
+        invisible: true
+
+    category_id:
+        label: aic.faq::lang.form.category
+        relation: category
+        select: name
+        default: -
+        searchable: true
+
+    question:
+        label: aic.faq::lang.form.question
+        searchable: true
+
+    answer:
+        label: aic.faq::lang.form.answer
+        searchable: true
+        invisible: true
+
+    is_featured:
+        label: aic.faq::lang.form.featured_status.title
+        type: partial
+        path: ~/plugins/aic/faq/models/faqs/_featured_status.htm
+        searchable: true
+
+    is_published:
+        label: aic.faq::lang.form.published_status.title
+        type: partial
+        path: ~/plugins/aic/faq/models/faqs/_published_status.htm
+        searchable: true
+
+    created_at:
+        label: aic.faq::lang.form.created_at
+        type: datetime
+        format: Y/m/d
+        searchable: true
+        invisible: true
+
+    updated_at:
+        label: aic.faq::lang.form.updated_at
+        type: datetime
+        format: Y/m/d
+        searchable: true
+        invisible: true

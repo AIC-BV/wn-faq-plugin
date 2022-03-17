@@ -1,0 +1,29 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: aic.faq::lang.form.name
+        span: auto
+
+secondaryTabs:
+
+    fields:
+
+        created_at:
+            label: aic.faq::lang.form.created_at
+            type: datepicker
+            mode: date
+            format: Y/m/d
+            minDate: now
+            default: now
+
+        updated_at:
+            label: aic.faq::lang.form.updated_at
+            type: datepicker
+            mode: date
+            format: Y/m/d
+            minDate: now
+            default: now

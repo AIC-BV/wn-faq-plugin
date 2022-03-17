@@ -1,0 +1,17 @@
+<?php
+
+    $text = [
+        0 => 'not_published',
+        1 => 'published',
+        2 => 'in_draft'
+    ];
+
+    $class = [
+        0 => 'text-danger',
+        1 => 'text-success',
+        2 => 'text-warning'
+    ];
+
+?>
+
+<span class='wn-icon-circle <?= $class[$record->is_published] ?>'><?= Lang::get('aic.faq::lang.form.published_status.' . $text[$record->is_published]) ?></span>

@@ -1,0 +1,15 @@
+<?php
+
+    $text = [
+        0 => 'not_featured',
+        1 => 'featured'
+    ];
+
+    $class = [
+        0 => '',
+        1 => 'text-success'
+    ];
+
+?>
+
+<span class='wn-icon-circle <?= $class[$record->is_featured] ?>'><?= Lang::get('aic.faq::lang.form.featured_status.' . $text[$record->is_featured]) ?></span>

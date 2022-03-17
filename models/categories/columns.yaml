@@ -1,0 +1,27 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    id:
+        label: aic.faq::lang.form.id
+        invisible: true
+
+    name:
+        label: aic.faq::lang.form.name
+        searchable: true
+
+    created_at:
+        label: aic.faq::lang.form.created_at
+        type: datetime
+        format: d/m/Y
+        searchable: true
+        invisible: true
+        
+    updated_at:
+        label: aic.faq::lang.form.updated_at
+        type: datetime
+        format: Y/m/d
+        searchable: true
+        invisible: true

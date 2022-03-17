@@ -1,0 +1,5 @@
+1.0.0:
+    - Create faqs table
+    - create_faqs_table.php
+    - Create Categories table
+    - create_categories_table.php

@@ -1,0 +1,16 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><?= e(trans('aic.faq::lang.menu.faqs')) ?></li>
+        <li>
+            <span class='text-info'><strong><?= Aic\Faq\Models\Faqs::all()->count() ?></strong> <?= e(trans('aic.faq::lang.form.total')) ?></span>
+            &nbsp; <i class='icon-long-arrow-right'></i> &nbsp;
+            <span class='text-success'><i class='icon-check'></i> &nbsp;<strong><?= Aic\Faq\Models\Faqs::where('is_published', 1)->count() ?></strong> <?= e(trans('aic.faq::lang.form.published_status.published')) ?></span>
+            &nbsp; | &nbsp;
+            <span class='text-warning'><i class='icon-pencil'></i> &nbsp;<strong><?= Aic\Faq\Models\Faqs::where('is_published', 2)->count() ?></strong> <?= e(trans('aic.faq::lang.form.published_status.in_draft')) ?></span>
+            &nbsp; | &nbsp;
+            <span class='text-danger'><i class='icon-times'></i> &nbsp;<strong><?= Aic\Faq\Models\Faqs::where('is_published', 0)->count() ?></strong> <?= e(trans('aic.faq::lang.form.published_status.not_published')) ?></span>
+        </li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?= $this->listRender() ?>

@@ -1,0 +1,25 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: aic.faq::lang.menu.faqs
+list: ~/plugins/aic/faq/models/faqs/columns.yaml
+
+modelClass: Aic\Faq\Models\Faqs
+recordUrl: aic/faq/faqs/update/:id
+noRecordsMessage: backend::lang.list.no_records
+
+recordsPerPage: 50
+showCheckboxes: true
+showSetup: true
+
+defaultSort:
+    column: category_id
+    direction: asc
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt
+
+filter: config_filter.yaml

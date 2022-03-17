@@ -1,0 +1,17 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: aic.faq::lang.title.faqs
+form: ~/plugins/aic/faq/models/faqs/fields.yaml
+
+modelClass: Aic\Faq\Models\Faqs
+defaultRedirect: aic/faq/faqs
+
+create:
+    redirect: aic/faq/faqs/update/:id
+    redirectClose: aic/faq/faqs
+
+update:
+    redirect: aic/faq/faqs/update/:id
+    redirectClose: aic/faq/faqs

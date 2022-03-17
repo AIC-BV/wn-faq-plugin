@@ -1,0 +1,17 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: aic.faq::lang.title.categories
+form: ~/plugins/aic/faq/models/categories/fields.yaml
+
+modelClass: Aic\Faq\Models\Categories
+defaultRedirect: aic/faq/categories
+
+create:
+    redirect: aic/faq/categories/update/:id
+    redirectClose: aic/faq/categories
+
+update:
+    redirect: aic/faq/categories/update/:id
+    redirectClose: aic/faq/categories

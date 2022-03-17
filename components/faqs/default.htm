@@ -1,0 +1,25 @@
+{% if __SELF__.isSearch and __SELF__.minSearchResults %}
+    <aside id='{{ __SELF__ }}-search'>
+
+        <form>
+            <input type='text' id='{{ __SELF__.id }}' name='q' placeholder='{{ __SELF__.searchPlaceholder }}' value='{{ __SELF__.searchQuery }}'>
+            <button type='submit'><label for='{{ __SELF__.id }}' style='pointer-events: none;'>{{ __SELF__.searchLabel }}</label></button>
+        </form>
+
+    </aside>
+{% endif %}
+
+{% if __SELF__.faqs|length > 0 %}
+    <ul>
+    {% for faq in __SELF__.faqs %}
+        <li>
+
+            <details>
+                <summary>{{ faq.question }}</summary>
+                <div>{{ faq.answer | md }}</div>
+            </details>
+            
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}

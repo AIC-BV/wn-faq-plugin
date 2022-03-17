@@ -1,0 +1,31 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+
+    created_at:
+        label: aic.faq::lang.form.created_at
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'
+
+    category:
+        label: aic.faq::lang.form.category
+        conditions: category_id in (:filtered)
+        modelClass: Aic\Faq\Models\Categories
+        options: getCategoryOptions
+
+    is_published:
+        label: aic.faq::lang.form.published_status.title
+        conditions: is_published in (:filtered)
+        options:
+            0: aic.faq::lang.form.published_status.not_published
+            1: aic.faq::lang.form.published_status.published
+            2: aic.faq::lang.form.published_status.in_draft
+
+    is_featured:
+        label: aic.faq::lang.form.featured_status.title
+        conditions: is_featured in (:filtered)
+        options:
+            0: aic.faq::lang.form.featured_status.not_featured
+            1: aic.faq::lang.form.featured_status.featured

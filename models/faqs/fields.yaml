@@ -1,0 +1,58 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    category:
+        label: aic.faq::lang.form.category
+        type: relation
+        emptyOption: aic.faq::lang.form.no_category
+
+    question:
+        label: aic.faq::lang.form.question
+        type: textarea
+        size: tiny
+
+    answer:
+        label: aic.faq::lang.form.answer
+        type: richeditor
+        size: giant
+        toolbarButtons: bold|italic|underline|||subscript|superscript|||emoticons|||formatOL|formatUL|||insertLink|insertImage|insertVideo|insertFile|||undo|redo|||html|||
+
+secondaryTabs:
+
+    fields:
+
+        is_published:
+            label: aic.faq::lang.form.published_status.title
+            type: balloon-selector
+            options:
+                1: aic.faq::lang.form.published_status.published
+                2: aic.faq::lang.form.published_status.in_draft
+                0: aic.faq::lang.form.published_status.not_published
+            default: 1
+
+        is_featured:
+            label: aic.faq::lang.form.featured_status.title
+            type: balloon-selector
+            options:
+                1: aic.faq::lang.form.featured_status.featured
+                0: aic.faq::lang.form.featured_status.not_featured
+            default: 0
+        
+        created_at:
+            label: aic.faq::lang.form.created_at
+            type: datepicker
+            mode: date
+            format: Y/m/d
+            minDate: now
+            default: now
+
+        updated_at:
+            label: aic.faq::lang.form.updated_at
+            type: datepicker
+            mode: date
+            format: Y/m/d
+            minDate: now
+            default: now
