@@ -1,0 +1,14 @@
+{
+    "name": "aic-bv/wn-faq-plugin",
+    "description": "(multilingual) FAQ plugin for WinterCMS",
+    "keywords": ["winter", "wintercms", "faq", "translate"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AIC BV",
+            "email": "info@aic-bv.be",
+            "homepage": "",
+            "role": "Developer"
+        }
+    ]
+}
