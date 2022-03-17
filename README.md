@@ -70,6 +70,28 @@ You can (soon) install this plugin for free using WinterCMS Marketplace or using
 You can then go to 'CMS -> Components' to drag and drop FAQ in to your page/layout.
 Clicking the FAQ component gives you the options to modify the default behaviour.
 
+## FAQ variables
+
+A FAQ exists out of the following variables:
+
+- id
+- category_id
+- is_published
+- is_featured
+- question
+- answer
+- created_at
+- updated_at
+
+In the component itself you can use the following variables (note that you should prepend them with [{{ `__SELF__` }}](https://wintercms.com/docs/plugin/components#referencing-self) if you have multiple FAQ components on one page:  
+
+- faqs (array of FAQs)
+- isSearch (if true, searchbox is enabled)
+- searchLabel (label for the search field)
+- searchPlaceholder (placeholder for the search field)
+- minSearchResults (the minimum amount of results required for displaying the searchbox)
+- searchQuery (the querystring user used in the search box)
+
 ## Let me know what you think
 
 I spent a lot of time making this plugin public for the community. All I ask in return is that you [let me know](https://github.com/AIC-BV) that you are using my plugin.
