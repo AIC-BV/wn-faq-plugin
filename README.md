@@ -66,7 +66,7 @@ With the FAQ plugin, you can:
 
 ## Installation
 
-You can install this plugin for free using WinterCMS Marketplace.
+You can (soon) install this plugin for free using WinterCMS Marketplace or using composer (composer require aic/wn-faq-plugin).
 You can then go to 'CMS -> Components' to drag and drop FAQ in to your page/layout.
 Clicking the FAQ component gives you the options to modify the default behaviour.
 
