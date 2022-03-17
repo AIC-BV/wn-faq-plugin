@@ -50,6 +50,7 @@ With the FAQ plugin, you can:
 - Automatically displays all FAQs regardless of their featured status
 - Automatically adds a search box if there are more than 10 FAQs in total
     - You can change this on the component itself by changing 'Search minimum results'.
+    - Not shown if 'Search enabled' is unchecked
 - Automatically hides FAQs that are not translated
     - You can change this on the component itself by unchecking 'Translated FAQs only'.
 
