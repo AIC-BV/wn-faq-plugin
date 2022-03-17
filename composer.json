@@ -1,5 +1,5 @@
 {
-    "name": "aic-bv/wn-faq-plugin",
+    "name": "aic/wn-faq-plugin",
     "type": "winter-plugin",
     "description": "(multilingual) FAQ plugin for WinterCMS",
     "keywords": ["winter", "cms", "faq", "translate", "plugin"],
