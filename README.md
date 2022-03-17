@@ -2,6 +2,7 @@
 
 Create Frequently Asked Questions with ease!
 These can be translated if you are using [Winter.Translate](https://github.com/wintercms/wn-translate-plugin).
+
 Note:
 
 - The FAQ plugin comes without JavaScript and without CSS. You must style this yourself, so that it will fit your website brand.
