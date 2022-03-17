@@ -20,7 +20,7 @@ With the FAQ plugin, you can:
 - Define questions and answers in your FAQ
 - Control which FAQs are published
     - Published
-    - In progress: allows logged in backend users to see them on the frontend
+    - In progress (allows logged in backend users to see them on the frontend)
     - Hidden
 - Add a featured status to FAQ
     - Featured
