@@ -10,6 +10,11 @@ Note:
 - You can [extend any WinterCMS plugin](https://wintercms.com/docs/plugin/extending).
 - You can [override the default markup](https://wintercms.com/docs/cms/components#overriding-partials).
 
+
+## Images
+[FAQ List](assets/faq_list.jpg)
+[FAQ Edit](assets/faq_edit.jpg)
+
 ## Features
 
 With the FAQ plugin, you can:
