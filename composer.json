@@ -1,14 +1,18 @@
 {
     "name": "aic-bv/wn-faq-plugin",
+    "type": "winter-plugin",
     "description": "(multilingual) FAQ plugin for WinterCMS",
-    "keywords": ["winter", "wintercms", "faq", "translate"],
+    "keywords": ["winter", "cms", "faq", "translate", "plugin"],
     "license": "MIT",
     "authors": [
         {
             "name": "AIC BV",
             "email": "info@aic-bv.be",
-            "homepage": "",
             "role": "Developer"
         }
-    ]
+    ],
+    "require": {
+        "php": ">=7.2",
+        "composer/installers": "~1.0"
+    }
 }
