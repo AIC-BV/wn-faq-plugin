@@ -6,7 +6,7 @@ These can be translated if you are using [Winter.Translate](https://github.com/w
 Note:
 
 - The FAQ plugin comes without JavaScript and without CSS. You must style this yourself, so that it will fit your website brand.
-- You can [override or write your own translations](https://wintercms.com/docs/plugin/localization#overriding).
+- You can [override the translations](https://wintercms.com/docs/plugin/localization#overriding).
 - You can [extend any WinterCMS plugin](https://wintercms.com/docs/plugin/extending).
 - You can [override the default markup](https://wintercms.com/docs/cms/components#overriding-partials).
 
