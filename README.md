@@ -40,7 +40,7 @@ With the FAQ plugin, you can:
 - Make sure that only FAQs in the correct language are shown
     - for example: if FAQ #1 is NOT translated in Spanish, it won't show when the user's locale is Spanish
     - for example: if FAQ #2 is translated in Spanish and English, it will show in both Spanish and English, but not in French.
-- The default markup makes use of [HTML5 <details> & <summary>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details)
+- The default markup makes use of [HTML5 details & summary](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details)
     - This adds default behaviour for opening and closing FAQs
 - Translate FAQs
 
