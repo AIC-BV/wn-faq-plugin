@@ -12,8 +12,8 @@ Note:
 
 
 ## Images
-[FAQ List](assets/faq_list.jpg)
-[FAQ Edit](assets/faq_edit.jpg)
+[[/assets/faq_list.jpg|FAQ List]]
+[[/assets/faq_edit.jpg|FAQ Edit]]
 
 ## Features
 
@@ -67,7 +67,7 @@ Clicking the FAQ component gives you the options to modify the default behaviour
 
 ## Let me know what you think
 
-All I ask in return is that you [let me know](https://github.com/AIC-BV) that you are using my plugin.
+I spent a lot of time to create this plugin for the community. All I ask in return is that you [let me know](https://github.com/AIC-BV) that you are using my plugin.
 I'm sure you all understand that it is very nice for me to know if my plugin is being used or not (might make more in the future if people actually use my plugins).
 
 You can do so by sending me a simple message on Discord (Makalele#4465) or an e-mail to __info@aic-bv.be__. It doesn't have to be much, a thank you is all I ask for :)
