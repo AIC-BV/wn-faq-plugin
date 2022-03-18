@@ -59,7 +59,8 @@ return [
             'category' => [
                 'title' => 'Categorie',
                 'description' => 'Kies de categorie om weer te geven',
-                'all' => 'Alle categorieën'
+                'all' => 'Alle categorieën',
+                'no_category_label' => 'Andere'
             ],
             'featured' => [
                 'title' => 'FAQs',
