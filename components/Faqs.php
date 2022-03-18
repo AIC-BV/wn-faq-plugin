@@ -162,7 +162,7 @@ class Faqs extends ComponentBase
            
             foreach($categories as $category) {
                 $newArray[$category->id] = [
-                    'name' => $category->name,
+                    'categoryName' => $category->name,
                     'faqs' => []
                 ];
             }
@@ -170,6 +170,12 @@ class Faqs extends ComponentBase
             // push the faq to the right category
             foreach ($faqs as $faq) {
                 $newArray[$faq->category_id]['faqs'][] = $faq;
+
+                // if categoryName doesn't exist
+                // set no_category_label
+                if (!array_key_exists('categoryName', $newArray[$faq->category_id])) {
+                    $newArray[$faq->category_id]['categoryName'] = Lang::get('aic.faq::lang.component.settings.category.no_category_label');
+                }
             }
 
             // remove empty categories
