@@ -71,26 +71,25 @@ With the FAQ plugin, you can:
 
 ## Installation
 
-You can (soon) install this plugin for free using WinterCMS Marketplace or using composer (composer require aic/wn-faq-plugin and php artisan winter:up).
+You can (soon) install this plugin for free using WinterCMS Marketplace or (now) using composer (composer require aic/wn-faq-plugin and php artisan winter:up).
 You can then go to 'CMS -> Components' to drag and drop FAQ in to your page/layout.
 Clicking the FAQ component gives you the options to modify the default behaviour.
 
 ## FAQ variables
 
-A FAQ exists out of the following variables:
-
-- id
-- category_id
-- is_published
-- is_featured
-- question
-- answer
-- created_at
-- updated_at
-
 In the component itself you can use the following variables (note that you should prepend them with [{{ `__SELF__` }}](https://wintercms.com/docs/plugin/components#referencing-self) if you have multiple FAQ components on one page):  
 
-- faqs (array of FAQs)
+- items (array of items)
+    - name (= category name)
+    - faqs (array of faqs)
+        - id
+        - category_id
+        - is_published
+        - is_featured
+        - question
+        - answer
+        - created_at
+        - updated_at
 - isSearch (if true, searchbox is enabled)
 - searchLabel (label for the search field)
 - searchPlaceholder (placeholder for the search field)
