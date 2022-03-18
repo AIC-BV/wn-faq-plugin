@@ -59,7 +59,8 @@ return [
             'category' => [
                 'title' => 'Category',
                 'description' => 'Choose which category to display',
-                'all' => 'All categories'
+                'all' => 'All categories',
+                'no_category_label' => 'Other'
             ],
             'featured' => [
                 'title' => 'FAQs',
