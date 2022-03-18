@@ -7,7 +7,7 @@ use Aic\Faq\Models\Faqs as Faq;
 
 class Faqs extends ComponentBase
 {
-    public $faqs;
+    public $items;
     public $isSearch;
     public $searchLabel;
     public $searchPlaceholder;
@@ -80,7 +80,7 @@ class Faqs extends ComponentBase
     public function onRun()
     {
         $this->prepareVars();
-        $this->faqs = $this->getFAQs();
+        $this->items = $this->getFAQs();
         $this->showSearch();
     }
 
@@ -103,15 +103,16 @@ class Faqs extends ComponentBase
             'isSearch'     => (int) $this->property('isSearch'),
             'isTranslated' => (int) $this->property('isTranslated'),
             'searchQuery'  => ''
-        ]);
+        ])->count();
 
-        if (count($faqsWithoutSearch) >= $minResults) $this->minSearchResults = true;
+        if ($faqsWithoutSearch >= $minResults) $this->minSearchResults = true;
         else $this->minSearchResults = false;
     }
 
     protected function getFAQs()
     {
-        return Faq::listFrontEnd([
+        
+        $faqs = Faq::listFrontEnd([
             'sort'         => $this->property('sort'),
             'categoryId'   => (int) $this->property('categoryId'),
             'isFeatured'   => (int) $this->property('isFeatured'),
@@ -119,10 +120,80 @@ class Faqs extends ComponentBase
             'isTranslated' => (int) $this->property('isTranslated'),
             'searchQuery'  => trim(input('q'))
         ]);
+
+        $categoryId = (int) $this->property('categoryId');
+        $sort = $this->property('sort');
+        $faqs = $this->faqsPerCategory($categoryId, $faqs, $sort);
+
+        return $faqs;
+    }
+
+    protected function faqsPerCategory($categoryId, $faqs, $sort)
+    {
+
+        // get category name
+        $categoryName = $this->getCategoryName($categoryId);
+
+        // if category name is not 0 (all)
+        if ($categoryName != 0) {
+
+            // return the FAQs with their category
+            return [
+                [
+                    'name' => $categoryName,
+                    'faqs' => $faqs
+                ]
+            ];
+
+        } else {
+
+            // create new array
+            $newArray = [];
+
+            // prepare the array with the categories
+            $categories = [];
+            if ($sort == 'category_id asc') {
+                $categories = Categories::orderBy('id', 'asc')->get();
+            } else  if ($sort == 'category_id desc') {
+                $categories = Categories::orderBy('id', 'desc')->get();
+            } else {
+                $categories = Categories::get();
+            }
+           
+            foreach($categories as $category) {
+                $newArray[$category->id] = [
+                    'name' => $category->name,
+                    'faqs' => []
+                ];
+            }
+
+            // push the faq to the right category
+            foreach ($faqs as $faq) {
+                $newArray[$faq->category_id]['faqs'][] = $faq;
+            }
+
+            // remove empty categories
+            foreach ($newArray as $key => $value) {
+                $amountFaqs = count($value['faqs']);
+                if ($amountFaqs == 0) unset($newArray[$key]);
+            }
+
+            // return the new array
+            return $newArray;
+
+        }
+
+    }
+
+    protected function getCategoryName($categoryId)
+    { 
+        if ($categoryId == 0) return 0;
+        else return Categories::find($categoryId)->name;
     }
 
     public function getCategoryIdOptions()
     {
+        // return all categories for the dropdown
         $categories = Categories::lists('name', 'id');
         $categories[0] = 'aic.faq::lang.component.settings.category.all';
         ksort($categories);
