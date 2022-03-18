@@ -9,17 +9,23 @@
     </aside>
 {% endif %}
 
-{% if __SELF__.faqs|length > 0 %}
-    <ul>
-    {% for faq in __SELF__.faqs %}
-        <li>
+{% if __SELF__.items|length > 0 %}
+    {% for item in __SELF__.items %}
+        
+        <h2>{{ item.name }}</h2>
 
-            <details>
-                <summary>{{ faq.question }}</summary>
-                <div>{{ faq.answer | md }}</div>
-            </details>
-            
-        </li>
+        <ul>
+        {% for faq in item.faqs %}
+            <li>
+
+                <details>
+                    <summary>{{ faq.question }}</summary>
+                    <div>{{ faq.answer | md }}</div>
+                </details>
+                
+            </li>
+        {% endfor %}
+        </ul>
+        
     {% endfor %}
-    </ul>
 {% endif %}
