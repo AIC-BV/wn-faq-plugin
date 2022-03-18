@@ -1,5 +1,5 @@
 {% if __SELF__.isSearch and __SELF__.minSearchResults %}
-    <aside id='{{ __SELF__ }}-search'>
+    <aside class='aic-search'>
 
         <form>
             <input type='text' id='{{ __SELF__.id }}' name='q' placeholder='{{ __SELF__.searchPlaceholder }}' value='{{ __SELF__.searchQuery }}'>
@@ -12,19 +12,24 @@
 {% if __SELF__.items|length > 0 %}
     {% for item in __SELF__.items %}
         
-        <h2>{{ item.name }}</h2>
-        <ul>
-        {% for faq in item.faqs %}
-            <li>
+        <div class='aic-category'>
 
-                <details>
-                    <summary>{{ faq.question }}</summary>
-                    <div>{{ faq.answer | md }}</div>
-                </details>
-                
-            </li>
-        {% endfor %}
-        </ul>
-        
+            <h2>{{ item.categoryName }}</h2>
+
+            <ul>
+            {% for faq in item.faqs %}
+                <li>
+
+                    <details>
+                        <summary>{{ faq.question }}</summary>
+                        <div>{{ faq.answer | md }}</div>
+                    </details>
+                    
+                </li>
+            {% endfor %}
+            </ul>
+
+        </div>
+
     {% endfor %}
 {% endif %}
