@@ -166,7 +166,7 @@ class Faqs extends Model
         // merge settings with component default properties
         extract(array_merge([
             'categoryId' => 0,
-            'isFeatured'  => 2,
+            'isFeatured' => 2,
             'isSearch' => 1,
             'isTranslated' => 1,
             'isPublished' => 1,
