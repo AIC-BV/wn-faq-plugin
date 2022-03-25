@@ -41,18 +41,18 @@ secondaryTabs:
                 0: aic.faq::lang.form.featured_status.not_featured
             default: 0
         
-        created_at:
-            label: aic.faq::lang.form.created_at
-            type: datepicker
-            mode: date
-            format: Y/m/d
-            minDate: now
-            default: now
+#         created_at:
+#             label: aic.faq::lang.form.created_at
+#             type: datepicker
+#             mode: date
+#             format: Y/m/d
+#             minDate: now
+#             default: now
 
-        updated_at:
-            label: aic.faq::lang.form.updated_at
-            type: datepicker
-            mode: date
-            format: Y/m/d
-            minDate: now
-            default: now
+#         updated_at:
+#             label: aic.faq::lang.form.updated_at
+#             type: datepicker
+#             mode: date
+#             format: Y/m/d
+#             minDate: now
+#             default: now
