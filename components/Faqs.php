@@ -7,7 +7,8 @@ use Aic\Faq\Models\Faqs as Faq;
 
 class Faqs extends ComponentBase
 {
-    public $items;
+    public $faqs;
+    public $faqsPerCategory;
     public $isSearch;
     public $searchLabel;
     public $searchPlaceholder;
@@ -80,8 +81,9 @@ class Faqs extends ComponentBase
     public function onRun()
     {
         $this->prepareVars();
-        $this->items = $this->getFAQs();
-        $this->showSearch();
+        $this->faqs = $this->getFAQs();
+        $this->faqsPerCategory = $this->faqsPerCategory($this->faqs);
+        $this->minSearchResults = $this->showSearch();
     }
 
     protected function prepareVars()
@@ -105,8 +107,8 @@ class Faqs extends ComponentBase
             'searchQuery'  => ''
         ])->count();
 
-        if ($faqsWithoutSearch >= $minResults) $this->minSearchResults = true;
-        else $this->minSearchResults = false;
+        if ($faqsWithoutSearch >= $minResults) return true;
+        else return false;
     }
 
     protected function getFAQs()
@@ -121,15 +123,15 @@ class Faqs extends ComponentBase
             'searchQuery'  => trim(input('q'))
         ]);
 
-        $categoryId = (int) $this->property('categoryId');
-        $sort = $this->property('sort');
-        $faqs = $this->faqsPerCategory($categoryId, $faqs, $sort);
-
         return $faqs;
     }
 
-    protected function faqsPerCategory($categoryId, $faqs, $sort)
+    protected function faqsPerCategory($faqs)
     {
+
+        // get properties
+        $categoryId = (int) $this->property('categoryId');
+        $sort = $this->property('sort');
 
         // get category name
         $categoryName = $this->getCategoryName($categoryId);
@@ -154,7 +156,7 @@ class Faqs extends ComponentBase
             $categories = [];
             if ($sort == 'category_id asc') {
                 $categories = Categories::orderBy('id', 'asc')->get();
-            } else  if ($sort == 'category_id desc') {
+            } else if ($sort == 'category_id desc') {
                 $categories = Categories::orderBy('id', 'desc')->get();
             } else {
                 $categories = Categories::get();
