@@ -9,8 +9,8 @@
     </aside>
 {% endif %}
 
-{% if __SELF__.items|length > 0 %}
-    {% for item in __SELF__.items %}
+{% if __SELF__.faqsPerCategory|length > 0 %}
+    {% for item in __SELF__.faqsPerCategory %}
         
         <div class='aic-category'>
 
@@ -33,3 +33,16 @@
 
     {% endfor %}
 {% endif %}
+
+<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{% for faq in __SELF__.faqs %}{
+        "@type": "Question",
+        "name": "{{ faq.question }}",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "<p>{{ faq.answer }}</p>"
+        }
+    }{{ loop.last ? '' : ', ' }}{% endfor %}]
+}</script>
