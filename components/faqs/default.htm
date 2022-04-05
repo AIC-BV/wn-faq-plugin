@@ -42,7 +42,7 @@
         "name": "{{ faq.question }}",
         "acceptedAnswer": {
             "@type": "Answer",
-            "text": "<p>{{ faq.answer }}</p>"
+            "text": "{{ faq.answer | md }}"
         }
     }{{ loop.last ? '' : ', ' }}{% endfor %}]
 }</script>
