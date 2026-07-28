@@ -1,0 +1,76 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+
+    icons:
+        aic.faq::lang.fields.tab_meta: icon-search
+        aic.faq::lang.form.intro: icon-address-card-o
+        aic.faq::lang.form.blocks: icon-hammer
+
+    fields:
+
+        title:
+            tab: aic.faq::lang.form.intro
+            label: aic.faq::lang.settings.title
+            type: text
+            span: auto
+
+        intro:
+            tab: aic.faq::lang.form.intro
+            label: aic.faq::lang.settings.intro
+            type: richeditor
+            size: small
+            span: auto
+
+        blocks:
+            tab: aic.faq::lang.form.blocks
+            prompt: aic.faq::lang.form.blocks_add
+            type: repeater
+            cssClass: secondary-tab
+            stretch: true
+            style: collapsed
+            groups: $/aic/faq/models/settings/blocks.yaml
+
+secondaryTabs:
+
+    fields:
+
+        meta_section:
+            tab: aic.faq::lang.fields.tab_meta
+            label: aic.faq::lang.fields.tab_meta
+            type: section
+
+        meta_title:
+            tab: aic.faq::lang.fields.tab_meta
+            label: aic.faq::lang.fields.meta_title
+            type: text
+
+        meta_description:
+            tab: aic.faq::lang.fields.tab_meta
+            label: aic.faq::lang.fields.meta_description
+            type: textarea
+            size: small
+
+        og_section:
+            tab: aic.faq::lang.fields.tab_meta
+            label: aic.faq::lang.fields.og
+            type: section
+
+        og_title:
+            tab: aic.faq::lang.fields.tab_meta
+            label: aic.faq::lang.fields.og_title
+            type: text
+
+        og_description:
+            tab: aic.faq::lang.fields.tab_meta
+            label: aic.faq::lang.fields.og_description
+            type: textarea
+            size: small
+
+        og_image:
+            tab: aic.faq::lang.fields.tab_meta
+            label: aic.faq::lang.fields.og_image
+            type: mediafinder
+            mode: image

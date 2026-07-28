@@ -7,15 +7,18 @@ return [
     ],
     'button' => [
         'return' => 'Retour',
-        'reorder' => 'Réorganiser'
+        'reorder' => 'Réorganiser',
+        'reset_default' => 'Rétablir les valeurs par défaut'
     ],
     'menu' => [
         'faqs' => 'FAQs',
-        'categories' => 'Catégories'
+        'categories' => 'Catégories',
+        'settings' => 'Paramètres'
     ],
     'title' => [
         'faqs' => 'FAQ',
-        'categories' => 'Catégorie'
+        'categories' => 'Catégorie',
+        'settings' => 'Paramètres'
     ],
     'new' => [
         'faqs' => 'Nouvelle FAQ',
@@ -26,6 +29,9 @@ return [
         'id' => 'ID',
         'name' => 'Nom',
         'slug' => 'Slug',
+        'intro' => 'Introduction',
+        'blocks' => 'Blocs',
+        'blocks_add' => 'Ajouter un bloc',
         'created_at' => 'Créé le',
         'updated_at' => 'Mis à jour le',
         'question' => 'Question',
@@ -111,6 +117,38 @@ return [
                 ]
             ]
         ]
+    ],
+    'settings' => [
+        'title' => 'Titre',
+        'intro' => 'Introduction',
+        'no_posts_title' => 'Message « aucun article »',
+        'no_posts_description' => 'Message à afficher lorsqu’aucun article n’est trouvé.',
+        'no_posts_found' => 'Aucun article trouvé',
+        'filter_title' => 'Filtres',
+        'filter_description' => 'Activer le filtre par catégorie'
+    ],
+    'fields' => [
+        'tab_meta' => 'Meta',
+        'meta_title' => 'Meta Title',
+        'meta_description' => 'Meta Description',
+        'og' => 'OpenGraph',
+        'og_title' => 'OG Title',
+        'og_description' => 'OG Description',
+        'og_image' => 'OG Image'
+    ],
+    'blocks' => [
+        'text' => 'Texte',
+        'title' => 'Titre',
+        'subtitle' => 'Sous-titre',
+        'type' => 'Type',
+        'type_default' => 'Standard',
+        'type_intro' => 'Introduction',
+        'color' => 'Couleur de fond',
+        'margin' => 'Marge supérieure',
+        'padding' => 'Espacement supérieur réduit',
+        'center' => 'Centrer le texte',
+        'on' => 'Activé',
+        'off' => 'Désactivé'
     ],
     'permission' => [
         'faq' => 'Gérer la FAQ'

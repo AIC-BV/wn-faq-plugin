@@ -4,12 +4,19 @@ use Cms\Classes\ComponentBase;
 use Lang;
 use Aic\Faq\Models\Categories;
 use Aic\Faq\Models\Faqs as Faq;
+use Aic\Faq\Models\Settings;
 
 class Faqs extends ComponentBase
 {
+    public $title;
+    public $intro;
+    public $blocks;
+
     public $faqs;
     public $faqsPerCategory;
     public $isSearch;
+    public $isFilter;
+    public $noPostsMessage;
     public $searchLabel;
     public $searchPlaceholder;
     public $minSearchResults;
@@ -81,6 +88,19 @@ class Faqs extends ComponentBase
                 'type'        => 'string',
                 'default'     => ''
             ],
+            'isFilter' => [
+                'title'       => 'aic.faq::lang.settings.filter_title',
+                'description' => 'aic.faq::lang.settings.filter_description',
+                'default'     => true,
+                'type'        => 'checkbox'
+            ],
+            'noPostsMessage' => [
+                'title'       => 'aic.faq::lang.settings.no_posts_title',
+                'description' => 'aic.faq::lang.settings.no_posts_description',
+                'type'        => 'string',
+                'default'     => Lang::get('aic.faq::lang.settings.no_posts_found'),
+                'showExternalParam' => false
+            ],
         ];
     }
 
@@ -95,9 +115,41 @@ class Faqs extends ComponentBase
     protected function prepareVars()
     {
         $this->isSearch = (int) $this->property('isSearch');
+        $this->isFilter = (int) $this->property('isFilter');
+        $this->noPostsMessage = $this->property('noPostsMessage');
         $this->searchLabel = Lang::get('aic.faq::lang.component.settings.search.button_label');
         $this->searchPlaceholder = Lang::get('aic.faq::lang.component.settings.search.input_placeholder');
         $this->searchQuery = trim(input('q'));
+
+        // title and intro
+        $settings = Settings::instance();
+        $this->title = $settings->title;
+        $this->intro = $settings->intro;
+        $this->blocks = $settings->blocks;
+
+        // set meta
+        $this->setMeta($settings);
+    }
+
+    protected function setMeta($settings)
+    {
+        // create the meta_description
+        $meta_description = strip_tags($settings->intro);
+        if (strlen($meta_description) > 200) {
+            $meta_description = substr($meta_description, 0, 197) . '...';
+        }
+
+        // set title
+        $this->page->title = ($settings->meta_title) ? $settings->meta_title : $settings->title;
+
+        // set meta (try meta_value, else try og_value, else use default value)
+        $this->page->meta_title = ($settings->meta_title) ? $settings->meta_title : ($settings->og_title ? $settings->og_title : $settings->title);
+        $this->page->meta_description = ($settings->meta_description) ? $settings->meta_description : ($settings->og_description ? $settings->og_description : $meta_description);
+
+        // set og (try og_value, else use meta_value)
+        $this->page->og_title = ($settings->og_title) ? $settings->og_title : $this->page->meta_title;
+        $this->page->og_description = ($settings->og_description) ? $settings->og_description : $this->page->meta_description;
+        $this->page->og_image = ($settings->og_image) ? $settings->og_image : null;
     }
 
     protected function showSearch()

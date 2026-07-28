@@ -1,0 +1,9 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: aic.faq::lang.title.settings
+form: ~/plugins/aic/faq/models/settings/fields.yaml
+
+modelClass: Aic\Faq\Models\Settings
+defaultRedirect: aic/faq/settings

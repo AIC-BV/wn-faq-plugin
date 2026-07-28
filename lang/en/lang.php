@@ -7,15 +7,18 @@ return [
     ],
     'button' => [
         'return' => 'Return',
-        'reorder' => 'Reorder'
+        'reorder' => 'Reorder',
+        'reset_default' => 'Reset to default'
     ],
     'menu' => [
         'faqs' => 'FAQs',
-        'categories' => 'Categories'
+        'categories' => 'Categories',
+        'settings' => 'Settings'
     ],
     'title' => [
         'faqs' => 'FAQ',
-        'categories' => 'Category'
+        'categories' => 'Category',
+        'settings' => 'Settings'
     ],
     'new' => [
         'faqs' => 'New FAQ',
@@ -26,6 +29,9 @@ return [
         'id' => 'ID',
         'name' => 'Name',
         'slug' => 'Slug',
+        'intro' => 'Introduction',
+        'blocks' => 'Blocks',
+        'blocks_add' => 'Add a block',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
         'question' => 'Question',
@@ -111,6 +117,38 @@ return [
                 ]
             ]
         ]
+    ],
+    'settings' => [
+        'title' => 'Title',
+        'intro' => 'Introduction',
+        'no_posts_title' => 'No articles message',
+        'no_posts_description' => 'Message to display when no articles are found.',
+        'no_posts_found' => 'No articles found',
+        'filter_title' => 'Filters',
+        'filter_description' => 'Enable the category filter'
+    ],
+    'fields' => [
+        'tab_meta' => 'Meta',
+        'meta_title' => 'Meta Title',
+        'meta_description' => 'Meta Description',
+        'og' => 'OpenGraph',
+        'og_title' => 'OG Title',
+        'og_description' => 'OG Description',
+        'og_image' => 'OG Image'
+    ],
+    'blocks' => [
+        'text' => 'Text',
+        'title' => 'Title',
+        'subtitle' => 'Subtitle',
+        'type' => 'Type',
+        'type_default' => 'Default',
+        'type_intro' => 'Intro',
+        'color' => 'Background color',
+        'margin' => 'Top margin',
+        'padding' => 'Smaller top spacing',
+        'center' => 'Center text',
+        'on' => 'On',
+        'off' => 'Off'
     ],
     'permission' => [
         'faq' => 'Manage FAQ'

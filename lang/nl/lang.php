@@ -7,15 +7,18 @@ return [
     ],
     'button' => [
         'return' => 'Vorige',
-        'reorder' => 'Herschikken'
+        'reorder' => 'Herschikken',
+        'reset_default' => 'Standaardwaarden herstellen'
     ],
     'menu' => [
         'faqs' => 'FAQs',
-        'categories' => 'Categorieën'
+        'categories' => 'Categorieën',
+        'settings' => 'Instellingen'
     ],
     'title' => [
         'faqs' => 'FAQ',
-        'categories' => 'Categorie'
+        'categories' => 'Categorie',
+        'settings' => 'Instellingen'
     ],
     'new' => [
         'faqs' => 'Nieuwe FAQ',
@@ -26,6 +29,9 @@ return [
         'id' => 'ID',
         'name' => 'Naam',
         'slug' => 'Slug',
+        'intro' => 'Introductie',
+        'blocks' => 'Blokken',
+        'blocks_add' => 'Voeg een blok toe',
         'created_at' => 'Aangemaakt op',
         'updated_at' => 'Aangepast op',
         'question' => 'Vraag',
@@ -111,6 +117,38 @@ return [
                 ]
             ]
         ]
+    ],
+    'settings' => [
+        'title' => 'Titel',
+        'intro' => 'Introductie',
+        'no_posts_title' => 'Geen artikels bericht',
+        'no_posts_description' => 'Bericht om weer te geven wanneer er geen artikels terug zijn gevonden.',
+        'no_posts_found' => 'Geen artikels gevonden',
+        'filter_title' => 'Filters',
+        'filter_description' => 'Schakel de categoriefilter in'
+    ],
+    'fields' => [
+        'tab_meta' => 'Meta',
+        'meta_title' => 'Meta Title',
+        'meta_description' => 'Meta Description',
+        'og' => 'OpenGraph',
+        'og_title' => 'OG Title',
+        'og_description' => 'OG Description',
+        'og_image' => 'OG Afbeelding'
+    ],
+    'blocks' => [
+        'text' => 'Tekst',
+        'title' => 'Titel',
+        'subtitle' => 'Subtitel',
+        'type' => 'Type',
+        'type_default' => 'Standaard',
+        'type_intro' => 'Inleiding',
+        'color' => 'Achtergrondkleur',
+        'margin' => 'Marge bovenaan',
+        'padding' => 'Kleinere afstand bovenaan',
+        'center' => 'Centreer tekst',
+        'on' => 'Aan',
+        'off' => 'Uit'
     ],
     'permission' => [
         'faq' => 'Beheer FAQ'

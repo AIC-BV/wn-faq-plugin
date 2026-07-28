@@ -155,6 +155,7 @@ class Faqs extends Model
 
             // sort the query
             $query->orderBy($sort[0], $sort[1]);
+            $query->orderBy('created_at', 'ASC');
 
         }
 

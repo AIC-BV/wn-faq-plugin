@@ -2,8 +2,20 @@
 use System\Classes\PluginBase;
 
 use Backend;
+use Event;
+use Aic\Faq\Models\Categories;
 
 class Plugin extends PluginBase {
+
+    public function boot()
+    {
+        /* URL parameter and query string translation (Winter.Translate locale picker) */
+        Event::listen('translate.localePicker.translateParams', function ($page, $params, $oldLocale, $newLocale) {
+            if ($page->hasComponent('FAQ') || $page->hasComponent('faqCategories')) {
+                return Categories::translateParams($params, $oldLocale, $newLocale);
+            }
+        });
+    }
 
     public function pluginDetails()
     {
@@ -38,6 +50,12 @@ class Plugin extends PluginBase {
                         'url'         => Backend::url('aic/faq/categories'),
                         'icon'        => 'icon-folder-open-o',
                         'order'       => 200
+                    ],
+                    'settings' => [
+                        'label'       => 'aic.faq::lang.menu.settings',
+                        'url'         => Backend::url('aic/faq/settings'),
+                        'icon'        => 'icon-cogs',
+                        'order'       => 300
                     ]
                 ]
             ]

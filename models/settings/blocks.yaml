@@ -1,0 +1,74 @@
+# ===================================
+#  Block group definitions
+#
+#  Rendering is up to the consuming theme: the FAQ component exposes the
+#  saved blocks as `blocks`. Themes with their own block system can point
+#  the repeater at their own groups file by overriding this field.
+# ===================================
+
+block_text:
+    name: aic.faq::lang.blocks.text
+    icon: icon-bars
+    fields:
+        type:
+            label: aic.faq::lang.blocks.type
+            type: balloon-selector
+            default: default
+            options:
+                default: aic.faq::lang.blocks.type_default
+                intro: aic.faq::lang.blocks.type_intro
+            span: storm
+            cssClass: col-xs-4
+        color:
+            label: aic.faq::lang.blocks.color
+            type: balloon-selector
+            default: 0
+            options:
+                0: aic.faq::lang.blocks.off
+                1: aic.faq::lang.blocks.on
+            span: storm
+            cssClass: col-xs-4
+        margin:
+            label: aic.faq::lang.blocks.margin
+            type: balloon-selector
+            default: 1
+            options:
+                0: aic.faq::lang.blocks.off
+                1: aic.faq::lang.blocks.on
+            span: storm
+            cssClass: col-xs-4
+        padding:
+            label: aic.faq::lang.blocks.padding
+            type: balloon-selector
+            default: 0
+            options:
+                0: aic.faq::lang.blocks.off
+                1: aic.faq::lang.blocks.on
+            span: storm
+            cssClass: col-xs-4
+        center:
+            label: aic.faq::lang.blocks.center
+            type: balloon-selector
+            default: 0
+            options:
+                0: aic.faq::lang.blocks.off
+                1: aic.faq::lang.blocks.on
+            span: storm
+            cssClass: col-xs-4
+        data:
+            type: nestedform
+            usePanelStyles: false
+            form:
+                fields:
+                    block_title:
+                        label: aic.faq::lang.blocks.title
+                        type: text
+                        span: auto
+                    subtitle:
+                        label: aic.faq::lang.blocks.subtitle
+                        type: text
+                        span: auto
+                    text:
+                        label: aic.faq::lang.blocks.text
+                        type: richeditor
+                        size: large
