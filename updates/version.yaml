@@ -3,3 +3,6 @@
     - create_faqs_table.php
     - Create Categories table
     - create_categories_table.php
+1.1.0:
+    - Restore the FAQ Categories component (faqCategories) with slug and publishing support
+    - add_category_publishing_columns.php

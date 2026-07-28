@@ -57,7 +57,8 @@ class Plugin extends PluginBase {
     public function registerComponents()
     {
         return [
-            'Aic\Faq\Components\Faqs' => 'FAQ'
+            'Aic\Faq\Components\Faqs' => 'FAQ',
+            'Aic\Faq\Components\Categories' => 'faqCategories'
         ];
     }
     

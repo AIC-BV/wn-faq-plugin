@@ -6,7 +6,8 @@ return [
         'description' => 'Frequently Asked Questions. Vragen en antwoorden. Geef ze een categorie, voeg uitgelichte statussen toe en beheer welke je wil weergeven op de frontend.'
     ],
     'button' => [
-        'return' => 'Vorige'
+        'return' => 'Vorige',
+        'reorder' => 'Herschikken'
     ],
     'menu' => [
         'faqs' => 'FAQs',
@@ -24,6 +25,7 @@ return [
         'total' => 'TOTAAL',
         'id' => 'ID',
         'name' => 'Naam',
+        'slug' => 'Slug',
         'created_at' => 'Aangemaakt op',
         'updated_at' => 'Aangepast op',
         'question' => 'Vraag',
@@ -83,6 +85,30 @@ return [
                 'title' => 'Minimum zoek resultaten',
                 'description' => 'De minimum hoeveelheid zoek resultaten om het zoek veld weer te geven. Moet een nummer zijn.',
                 'validationMessage' => 'Moet een nummer zijn'
+            ],
+            'category_slug' => [
+                'title' => 'Categorie-slug',
+                'description' => 'Zoek de FAQ-categorie op via de opgegeven slug en toon enkel de FAQs van die categorie'
+            ]
+        ],
+        'categories' => [
+            'title' => 'FAQ-categorieën',
+            'description' => 'Lijst van FAQ-categorieën',
+            'all_label' => 'Alle vragen',
+            'settings' => [
+                'links' => 'Links',
+                'slug' => [
+                    'title' => 'Categorie-slug',
+                    'description' => 'Slug van de actieve categorie, gebruikt om die te markeren in de lijst'
+                ],
+                'overview_page' => [
+                    'title' => 'Overzichtspagina',
+                    'description' => 'Pagina die alle FAQs toont'
+                ],
+                'category_page' => [
+                    'title' => 'Categoriepagina',
+                    'description' => 'Pagina die de FAQs van één categorie toont'
+                ]
             ]
         ]
     ],

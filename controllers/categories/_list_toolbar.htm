@@ -7,6 +7,13 @@
         <?= e(trans('aic.faq::lang.new.categories')) ?>
     </a>
 
+    <!-- reorder -->
+    <a
+        href="<?= Backend::url('aic/faq/categories/reorder') ?>"
+        class="btn btn-secondary wn-icon-sort">
+        <?= e(trans('aic.faq::lang.button.reorder')) ?>
+    </a>
+
     <?php if (Aic\Faq\Models\Categories::count() > 0): ?>
 
     <!-- remove -->

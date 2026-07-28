@@ -75,6 +75,12 @@ class Faqs extends ComponentBase
                 'default'     => true,
                 'type'        => 'checkbox'
             ],
+            'categorySlug' => [
+                'title'       => 'aic.faq::lang.component.settings.category_slug.title',
+                'description' => 'aic.faq::lang.component.settings.category_slug.description',
+                'type'        => 'string',
+                'default'     => ''
+            ],
         ];
     }
 
@@ -113,10 +119,12 @@ class Faqs extends ComponentBase
 
     protected function getFAQs()
     {
-        
+
+        $categoryId = $this->loadCategory() ?? (int) $this->property('categoryId');
+
         $faqs = Faq::listFrontEnd([
             'sort'         => $this->property('sort'),
-            'categoryId'   => (int) $this->property('categoryId'),
+            'categoryId'   => $categoryId,
             'isFeatured'   => (int) $this->property('isFeatured'),
             'isSearch'     => (int) $this->property('isSearch'),
             'isTranslated' => (int) $this->property('isTranslated'),
@@ -124,6 +132,20 @@ class Faqs extends ComponentBase
         ]);
 
         return $faqs;
+    }
+
+    protected function loadCategory()
+    {
+        $slug = $this->property('categorySlug');
+        if (!$slug) return null;
+
+        $category = new Categories();
+        $category = $category->isClassExtendedWith('Winter.Translate.Behaviors.TranslatableModel')
+            ? $category->transWhere('slug', $slug)
+            : $category->where('slug', $slug);
+        $category = $category->first();
+
+        return $category ? $category->id : null;
     }
 
     protected function faqsPerCategory($faqs)

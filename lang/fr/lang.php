@@ -6,7 +6,8 @@ return [
         'description' => 'Foire aux questions. Questions et réponses. Classez-les par catégorie, attribuez-leur un statut « en vedette » et gérez celles qui s’affichent sur votre site..'
     ],
     'button' => [
-        'return' => 'Retour'
+        'return' => 'Retour',
+        'reorder' => 'Réorganiser'
     ],
     'menu' => [
         'faqs' => 'FAQs',
@@ -24,6 +25,7 @@ return [
         'total' => 'TOTAL',
         'id' => 'ID',
         'name' => 'Nom',
+        'slug' => 'Slug',
         'created_at' => 'Créé le',
         'updated_at' => 'Mis à jour le',
         'question' => 'Question',
@@ -83,6 +85,30 @@ return [
                 'title' => 'Résultats minimum pour la recherche',
                 'description' => 'Nombre minimum de résultats à afficher dans le champ de recherche. Doit être un nombre.',
                 'validationMessage' => 'Doit être un nombre'
+            ],
+            'category_slug' => [
+                'title' => 'Slug de catégorie',
+                'description' => 'Recherche la catégorie de FAQ à partir du slug fourni et affiche uniquement les FAQs de cette catégorie'
+            ]
+        ],
+        'categories' => [
+            'title' => 'Catégories de FAQ',
+            'description' => 'Liste des catégories de FAQ',
+            'all_label' => 'Toutes les questions',
+            'settings' => [
+                'links' => 'Liens',
+                'slug' => [
+                    'title' => 'Slug de catégorie',
+                    'description' => 'Slug de la catégorie active, utilisé pour la mettre en évidence dans la liste'
+                ],
+                'overview_page' => [
+                    'title' => 'Page d’aperçu',
+                    'description' => 'Page qui affiche toutes les FAQs'
+                ],
+                'category_page' => [
+                    'title' => 'Page de catégorie',
+                    'description' => 'Page qui affiche les FAQs d’une catégorie'
+                ]
             ]
         ]
     ],

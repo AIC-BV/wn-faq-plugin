@@ -1,0 +1,11 @@
+# ===================================
+#  Reorder Behavior Config
+# ===================================
+
+title: Reorder categories
+nameFrom: name
+
+modelClass: Aic\Faq\Models\Categories
+
+toolbar:
+    buttons: reorder_toolbar

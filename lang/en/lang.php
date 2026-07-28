@@ -6,7 +6,8 @@ return [
         'description' => 'Frequently Asked Questions. Questions and answers. Assign them to a category, add featured statusses and manage which ones are displayed on the frontend.'
     ],
     'button' => [
-        'return' => 'Return'
+        'return' => 'Return',
+        'reorder' => 'Reorder'
     ],
     'menu' => [
         'faqs' => 'FAQs',
@@ -24,6 +25,7 @@ return [
         'total' => 'TOTAL',
         'id' => 'ID',
         'name' => 'Name',
+        'slug' => 'Slug',
         'created_at' => 'Created at',
         'updated_at' => 'Updated at',
         'question' => 'Question',
@@ -83,6 +85,30 @@ return [
                 'title' => 'Search minimum results',
                 'description' => 'Minimum amount of results for the search field to show. Must be a number',
                 'validationMessage' => 'Must be a number'
+            ],
+            'category_slug' => [
+                'title' => 'Category slug',
+                'description' => 'Look up the FAQ category using the supplied slug value and only show FAQs from that category'
+            ]
+        ],
+        'categories' => [
+            'title' => 'FAQ Categories',
+            'description' => 'List of FAQ categories',
+            'all_label' => 'All questions',
+            'settings' => [
+                'links' => 'Links',
+                'slug' => [
+                    'title' => 'Category slug',
+                    'description' => 'Slug of the active category, used to highlight it in the list'
+                ],
+                'overview_page' => [
+                    'title' => 'Overview page',
+                    'description' => 'Page that shows all FAQs'
+                ],
+                'category_page' => [
+                    'title' => 'Category page',
+                    'description' => 'Page that shows the FAQs of one category'
+                ]
             ]
         ]
     ],

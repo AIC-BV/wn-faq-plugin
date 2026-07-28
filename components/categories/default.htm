@@ -1,0 +1,19 @@
+{% set categories = __SELF__.categories %}
+{% set oPage = __SELF__.oPage %}
+{% set categoryPage = __SELF__.categoryPage %}
+{% set categorySlug = __SELF__.categorySlug %}
+
+{% if categories|length > 0 %}
+    <nav>
+        <ul>
+            {% if oPage %}
+                <li><a href='{{ oPage | page }}'{% if categorySlug == '' %} class='selected'{% endif %}>{{ __SELF__.allLabel }}</a></li>
+            {% endif %}
+            {% for category in categories %}
+                <li>
+                    <a href='{{ categoryPage | page({ slug: category.slug }) }}'{% if categorySlug == category.slug %} class='selected'{% endif %}>{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endif %}

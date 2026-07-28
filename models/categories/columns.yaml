@@ -12,13 +12,24 @@ columns:
         label: aic.faq::lang.form.name
         searchable: true
 
+    slug:
+        label: aic.faq::lang.form.slug
+        searchable: true
+        invisible: true
+
+    is_published:
+        label: aic.faq::lang.form.published_status.title
+        sortable: false
+        type: partial
+        path: ~/plugins/aic/faq/models/categories/_published_status.htm
+
     created_at:
         label: aic.faq::lang.form.created_at
         type: datetime
         format: d/m/Y
         searchable: true
         invisible: true
-        
+
     updated_at:
         label: aic.faq::lang.form.updated_at
         type: datetime
