@@ -24,7 +24,7 @@ The FAQ plugin provides:
 The plugin provides three frontend components:
 
 - `faqCategories` displays published categories, their FAQ count and an **All** link to the current page, without category parameters.
-- `FaqBySlug` displays FAQs from the published category resolved from its configured route parameter.
+- `FaqsBySlug` displays FAQs from the published category resolved from its configured route parameter.
 - `FAQ` displays all FAQs by default, can be limited to a selected category and provides search when enabled.
 
 FAQ listing components hide entries that are not translated into the current locale by default. Disable the `isTranslated` property to include them.
@@ -46,7 +46,7 @@ categorySlug = "{{ :slug }}"
 sort = "sort_order asc"
 categoryPage = "faq/category"
 
-[FaqBySlug]
+[FaqsBySlug]
 categoryFilter = "{{ :slug }}"
 sort = "question asc"
 ==
@@ -64,7 +64,7 @@ sort = "question asc"
 </div>
 
 <div class="faqs">
-    {% component 'FaqBySlug' %}
+    {% component 'FaqsBySlug' %}
 </div>
 ```
 
@@ -87,7 +87,7 @@ sort = "sort_order asc"
 
 Replace `faq/category` with the filename of your category CMS page. The **All** entry produced by `faqCategories` links to the page that contains the component, without category parameters; every other category links to `categoryPage` using its slug. When Winter.Translate is installed, category slug route parameters are translated with the locale picker.
 
-Both `FaqBySlug` and `FAQ` support `sort`, `isFeatured`, `isTranslated` and `noFaqsMessage`. `FAQ` additionally supports `categoryId`, `isSearch` and `minSearchResults`.
+Both `FaqsBySlug` and `FAQ` support `sort`, `isFeatured`, `isTranslated` and `noFaqsMessage`. `FAQ` additionally supports `categoryId`, `isSearch` and `minSearchResults`.
 
 ## FAQ variables
 
@@ -97,7 +97,7 @@ Use [{{ `__SELF__` }}](https://wintercms.com/docs/plugin/components#referencing-
 - `categories`: published category models, plus the synthetic **All** category. Each category has a `url` and `faqs_count`.
 - `currentCategorySlug`: the configured current route slug, suitable for marking the active link.
 
-`FaqBySlug` and `FAQ` expose:
+`FaqsBySlug` and `FAQ` expose:
 - `faqs`: the matching FAQ collection.
 - `faqsPerCategory`: matching FAQs grouped by category, as used by the default partial.
 - `jsonLd`: the generated FAQPage JSON-LD string.

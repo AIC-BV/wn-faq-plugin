@@ -82,7 +82,7 @@ class Categories extends ComponentBase
      */
     public function getCategoryPageOptions(): array
     {
-        return \Aic\Faq\Classes\ComponentHelper::getPagesByComponent('FaqBySlug');
+        return \Aic\Faq\Classes\ComponentHelper::getPagesByComponent('FaqsBySlug');
     }
 
     /**
