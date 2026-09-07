@@ -40,6 +40,13 @@ class Faqs extends Model
     ];
 
     /**
+     * @var array Attribute casts, matching the boolean `is_featured` column.
+     */
+    protected $casts = [
+        'is_featured' => 'boolean',
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      * @var array
      */

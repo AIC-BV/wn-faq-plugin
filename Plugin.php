@@ -108,18 +108,15 @@ class Plugin extends PluginBase
                     2 => 'text-warning'
                 ];
 
-                return '<span class="wn-icon-circle '. $class[$value] .'">'.
-                    \Aic\Faq\Classes\Enums\PublishStatusEnum::nameTranslated($value)
+                return '<span class="wn-icon-circle '. ($class[(int) $value] ?? '') .'">'.
+                    \Aic\Faq\Classes\Enums\PublishStatusEnum::nameTranslated((int) $value)
                     .'</span>';
             },
             'featuredstatus' => function ($value) {
-                $class = [
-                    0 => '',
-                    1 => 'text-success'
-                ];
+                $isFeatured = (bool) $value;
 
-                return '<span class="wn-icon-circle '. $class[$value] .'">'.
-                    Lang::get('backend::lang.list.column_switch_'. ($value === 1 ? 'true' : 'false'))
+                return '<span class="wn-icon-circle '. ($isFeatured ? 'text-success' : '') .'">'.
+                    Lang::get('backend::lang.list.column_switch_'. ($isFeatured ? 'true' : 'false'))
                     .'</span>';
             }
         ];
