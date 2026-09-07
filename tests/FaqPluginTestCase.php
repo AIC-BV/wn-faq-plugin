@@ -4,7 +4,7 @@ namespace Aic\Faq\Tests;
 
 use Aic\Faq\Models\Categories;
 use Aic\Faq\Models\Faqs;
-use PluginTestCase;
+use System\Tests\Bootstrap\PluginTestCase;
 
 /**
  * Shared base for the Aic.Faq plugin tests, providing common fixture helpers

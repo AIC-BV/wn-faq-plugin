@@ -99,7 +99,17 @@ abstract class FaqBaseComponent extends ComponentBase
     {
         $value = $this->property('isFeatured');
 
-        return $value === null || $value === '' ? null : (int) $value;
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        // BC: `2` used to mean "all". Kept for themes not yet updated to `null`.
+        // TODO: deprecate and remove in a future major version.
+        if ((int) $value === 2) {
+            return null;
+        }
+
+        return (int) $value;
     }
 
     /**

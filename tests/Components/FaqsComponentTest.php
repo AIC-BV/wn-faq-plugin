@@ -24,6 +24,26 @@ class FaqsComponentTest extends FaqPluginTestCase
         $this->assertSame([], $component->faqsPerCategory);
     }
 
+    /**
+     * @deprecated BC shim for themes still passing `isFeatured: 2`; remove this test with the shim in a future major version.
+     */
+    public function testLegacyIsFeaturedValueOfTwoIsTreatedAsNoFilter(): void
+    {
+        $category = $this->createCategory('General');
+        $this->createFaq($category->id, 1, 1, 'Featured question', 'Featured answer');
+        $this->createFaq($category->id, 1, 0, 'Not featured question', 'Not featured answer');
+
+        $component = new Faqs(null, [
+            'sort' => 'category_id asc',
+            'isFeatured' => 2,
+            'isTranslated' => false,
+        ]);
+
+        $component->onRun();
+
+        $this->assertCount(2, $component->faqs);
+    }
+
     public function testFaqsPerCategoryPreservesCategoryIdSortOrder(): void
     {
         $cat1 = $this->createCategory('Cat Alpha');
