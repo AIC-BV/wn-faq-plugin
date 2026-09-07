@@ -70,7 +70,7 @@ class FaqsBySlug extends FaqBaseComponent
     /**
      * {@inheritDoc}
      */
-    public function onRun(): void
+    public function onRun()
     {
         $this->prepareBaseVars();
 
@@ -80,7 +80,13 @@ class FaqsBySlug extends FaqBaseComponent
             $this->category = null;
         } else {
             $this->category = $this->resolveCategoryFromSlug($categorySlug);
-            $this->resolvedCategoryId = $this->category ? (int) $this->category->id : null;
+
+            // Unknown or unpublished slug: don't soft-404 an empty page, hand off to the theme's 404.
+            if (!$this->category) {
+                return $this->controller->run('404');
+            }
+
+            $this->resolvedCategoryId = (int) $this->category->id;
         }
 
         $this->page['faqCategory'] = $this->category;

@@ -31,7 +31,7 @@ class FaqsBySlugComponentTest extends FaqPluginTestCase
         $this->assertNotSame('', $component->jsonLd);
     }
 
-    public function testInvalidCategorySlugReturnsNoFaqs(): void
+    public function testInvalidCategorySlugTriggers404(): void
     {
         $category = $this->createCategory('General');
         $this->createFaq($category->id, 1, 0, 'Visible FAQ', 'Visible answer');
@@ -43,12 +43,24 @@ class FaqsBySlugComponentTest extends FaqPluginTestCase
             'isTranslated' => true,
         ]);
 
-        $component->onRun();
+        $controller = new class {
+            public array $ranUrls = [];
 
-        $this->assertNotNull($component->faqs);
-        $this->assertTrue($component->faqs->isEmpty());
-        $this->assertSame([], $component->faqsPerCategory);
-        $this->assertSame('', $component->jsonLd);
+            public function run($url)
+            {
+                $this->ranUrls[] = $url;
+
+                return '404-response';
+            }
+        };
+        (new \ReflectionProperty($component, 'controller'))->setAccessible(true);
+        (new \ReflectionProperty($component, 'controller'))->setValue($component, $controller);
+
+        $result = $component->onRun();
+
+        $this->assertSame('404-response', $result);
+        $this->assertSame(['404'], $controller->ranUrls);
+        $this->assertNull($component->faqs);
     }
 
     public function testEmptyCategoryFilterLoadsAllPublishedFaqs(): void
