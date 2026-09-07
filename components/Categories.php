@@ -91,7 +91,7 @@ class Categories extends ComponentBase
     public function onRun()
     {
         $this->currentCategorySlug = $this->page['currentCategorySlug'] = $this->property('categorySlug');
-        $this->categoryPage = $this->page['categoryPage'] = $this->property('categoryPage') ?? $this->page->fileName;
+        $this->categoryPage = $this->page['categoryPage'] = $this->property('categoryPage') ?: $this->page->fileName;
         $this->categories = $this->page['categories'] = $this->loadCategories();
     }
 
