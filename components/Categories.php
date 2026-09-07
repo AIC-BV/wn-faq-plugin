@@ -85,15 +85,6 @@ class Categories extends ComponentBase
         return \Aic\Faq\Classes\ComponentHelper::getPagesByComponent('FaqBySlug');
     }
 
-
-    /**
-     * Category page options getter
-     */
-    public function getFaqPageOptions(): array
-    {
-        return \Aic\Faq\Classes\ComponentHelper::getPagesByComponent('FAQ');
-    }
-
     /**
      * {@inheritDoc}
      */

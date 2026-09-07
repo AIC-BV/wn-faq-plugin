@@ -50,36 +50,6 @@ trait BackedEnum
     }
 
     /**
-     * Create a label from the case name.
-     *
-     * @param  int|string  $value  The simpler value.
-     * @param  bool  $isConst  Case format is a traditional "CONSTANT_CASE" string.
-     * @return string The created label.
-     */
-    // public static function toLabel(int|string $value, bool $isConst = false): string
-    // {
-    //     $enum = self::tryFrom($value);
-
-    //     $name = $enum ? $enum->name : '';
-    //     $name = $isConst ? Str::splitConstantCase($name) : Str::splitEnumCase($name);
-
-    //     return $name ? Str::title($name) : '';
-    // }
-
-    // /**
-    //  * Create and compile an array of labels from the case names.
-    //  *
-    //  * @param  bool  $isConst  Case format is a traditional "CONSTANT_CASE" string.
-    //  * @return array<string> The created labels.
-    //  */
-    // public static function toLabels(bool $isConst = false): array
-    // {
-    //     return array_map(function ($name) use ($isConst): string {
-    //         return Str::title($isConst ? Str::splitConstantCase($name) : Str::splitEnumCase($name));
-    //     }, array_column(self::cases(), 'name'));
-    // }
-
-    /**
      * Maps a scalar to an enum instance or null.
      *
      * @param  string  $name  The case name.
