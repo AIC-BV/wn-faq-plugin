@@ -43,9 +43,11 @@ return new class extends Migration
             $category->save();
         }
 
-        Schema::table($this->migrationTable, function ($table) {
-            $table->unique('slug');
-        });
+        if (!$this->hasIndex('slug')) {
+            Schema::table($this->migrationTable, function ($table) {
+                $table->unique('slug');
+            });
+        }
     }
 
     /**
@@ -62,5 +64,21 @@ return new class extends Migration
                 });
             }
         }
+    }
+
+    /**
+     * Check whether the given column already has a schema index, so the migration can be retried safely.
+     */
+    protected function hasIndex(string $column): bool
+    {
+        $indexes = Schema::getConnection()->getDoctrineSchemaManager()->listTableIndexes($this->migrationTable);
+
+        foreach ($indexes as $index) {
+            if ($index->getColumns() === [$column]) {
+                return true;
+            }
+        }
+
+        return false;
     }
 };
