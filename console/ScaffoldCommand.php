@@ -12,7 +12,7 @@ class ScaffoldCommand extends Command
     /**
      * @var string The console command name.
      */
-    protected static $defaultName = 'scaffold';
+    protected static $defaultName = 'scaffold:aic.faq';
 
     /**
      * @var string The name and signature of this command.
