@@ -5,10 +5,8 @@
             <h2>{{ categoryGroup.name }}</h2>
             <ul>
             {% for faq in categoryGroup.faqs %}
-                {% set escapedQuestion = faq.question | e %}
-                {% set escapedSearchTerm = searchTerm | e %}
-                {% set question = searchTerm ? escapedQuestion | replace({(escapedSearchTerm): '<mark>' ~ escapedSearchTerm ~ '</mark>'}) : escapedQuestion %}
-                {% set answer = searchTerm ? faq.answer | replace({(searchTerm): '<mark>' ~ searchTerm ~ '</mark>'}) : faq.answer %}
+                {% set question = searchTerm ? __SELF__.highlightPlainText(faq.question, searchTerm) : faq.question | e %}
+                {% set answer = searchTerm ? __SELF__.highlightHtml(faq.answer, searchTerm) : faq.answer %}
                 <li>
                     <details>
                         <summary><span>{{ question | raw }}</span></summary>

@@ -199,6 +199,85 @@ abstract class FaqBaseComponent extends ComponentBase
     }
 
     /**
+     * Highlight case-insensitive matches of a search term in escaped plain text.
+     */
+    public function highlightPlainText(string $text, string $searchTerm): string
+    {
+        $escaped = e($text);
+
+        if (trim($searchTerm) === '') {
+            return $escaped;
+        }
+
+        return preg_replace(
+            '/' . preg_quote(e($searchTerm), '/') . '/iu',
+            '<mark>$0</mark>',
+            $escaped
+        ) ?? $escaped;
+    }
+
+    /**
+     * Highlight case-insensitive matches of a search term inside stored HTML,
+     * touching only text nodes so tags and attributes are never altered.
+     */
+    public function highlightHtml(string $html, string $searchTerm): string
+    {
+        if ($html === '' || trim($searchTerm) === '') {
+            return $html;
+        }
+
+        $document = new \DOMDocument('1.0', 'UTF-8');
+        libxml_use_internal_errors(true);
+        $document->loadHTML(
+            '<?xml encoding="utf-8" ?><div>' . $html . '</div>',
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
+        libxml_clear_errors();
+
+        $pattern = '/' . preg_quote($searchTerm, '/') . '/iu';
+        $xpath = new \DOMXPath($document);
+
+        foreach ($xpath->query('//text()') as $textNode) {
+            $content = $textNode->nodeValue;
+
+            if ($content === '' || !preg_match($pattern, $content)) {
+                continue;
+            }
+
+            $fragment = $document->createDocumentFragment();
+            $lastOffset = 0;
+
+            preg_match_all($pattern, $content, $matches, PREG_OFFSET_CAPTURE);
+            foreach ($matches[0] as [$matchedText, $offset]) {
+                if ($offset > $lastOffset) {
+                    $fragment->appendChild($document->createTextNode(substr($content, $lastOffset, $offset - $lastOffset)));
+                }
+
+                $mark = $document->createElement('mark');
+                $mark->appendChild($document->createTextNode($matchedText));
+                $fragment->appendChild($mark);
+
+                $lastOffset = $offset + strlen($matchedText);
+            }
+
+            if ($lastOffset < strlen($content)) {
+                $fragment->appendChild($document->createTextNode(substr($content, $lastOffset)));
+            }
+
+            $textNode->parentNode->replaceChild($fragment, $textNode);
+        }
+
+        $wrapper = $document->getElementsByTagName('div')->item(0);
+        $innerHtml = '';
+        foreach ($wrapper->childNodes as $child) {
+            $innerHtml .= $document->saveHTML($child);
+        }
+
+        return $innerHtml;
+    }
+
+
+    /**
      * Collapse line breaks and repeated whitespace from stored HTML.
      */
     protected function cleanHtmlWhitespace(string $html): string
