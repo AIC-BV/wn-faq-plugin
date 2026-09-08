@@ -2,96 +2,136 @@
 
 Create and manage Frequently Asked Questions with ease! Full support for translation via [Winter.Translate](https://github.com/wintercms/wn-translate-plugin) if needed.
 
+## Features
+
+The FAQ plugin provides:
+
+- FAQ and category management, including publication, featured status and backend ordering.
+- Optional Winter.Translate support, including locale-aware FAQ and category-slug filtering.
+- CMS components for category navigation, full FAQ listings and category-specific FAQ pages.
+- Configurable FAQ sorting, filtering and AJAX search.
+- Native HTML5 `<details>` / `<summary>` markup, easy to override and style.
+- Automatic [FAQPage JSON-LD](https://schema.org/FAQPage) structured data.
+
+## Screenshots
+
 ![FAQ list](https://github.com/AIC-BV/wn-faq-plugin/blob/main/.github/assets/faq_list.jpg?raw=true)
 
 ![FAQ editing](https://github.com/AIC-BV/wn-faq-plugin/blob/main/.github/assets/faq_edit.jpg?raw=true)
 
-## Features
+## CMS components
 
-With the FAQ plugin, you can:
+The plugin provides three frontend components:
 
-- Full translation support if you are using Winter.Translate (optional)
-- Manage your FAQ, questions and answers
-- Manage FAQ's categories, can be used to group FAQ's together
-- Control published FAQ's status
-    - Published
-    - In progress (allows logged in backend users to see them on the frontend)
-    - Hidden
-- Control featured FAQ's status
-    - Featured
-    - Not featured
-- Choose the sorting method between predefined choices
-- First class components to display your FAQ's on the frontend
-    - Choose which categories you wish to display
-    - Choose which FAQs you wish to display according to their status
-- Enable a search field, allowing users to quickly find FAQs
-  - You can choose the minimum amount of results that are required for displaying the search field
-- FAQs are filtered by locale: only entries translated into the user's current language are displayed.  
-An FAQ without a Spanish translation stays hidden for Spanish users, even if it exists in English or French.
-- The default markup uses [HTML5 `<details>` and `<summary>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) elements, giving each FAQ native open/close behavior with no JavaScript required.  
-Since it's just plain, semantic HTML, the markup is easy to override or restyle to match your theme.
+- `faqCategories` displays published categories, their FAQ count and an **All** link to the current page, without category parameters.
+- `FaqsBySlug` displays FAQs from the published category resolved from its configured route parameter.
+- `FAQ` displays all FAQs by default, can be limited to a selected category and provides search when enabled.
 
-> Notes:  
-> If you are NOT using Winter.Translate, everything will work exactly the same but the 'Translated FAQs only' component property will be useless and there will be no translation support.  
-> 
-> The FAQ plugin comes without JavaScript and without CSS. You must style this yourself, so that it will fit your website brand.
->
-> You can override : 
-> - [Translations](https://wintercms.com/docs/plugin/localization#overriding)
-> - [Default markup](https://wintercms.com/docs/cms/components#overriding-partials)
-> - [The plugin himself](https://wintercms.com/docs/plugin/extending)
+FAQ listing components hide entries that are not translated into the current locale by default. Disable the `isTranslated` property to include them.
 
-## Default behaviour:
+### Example setup
 
-- Automatically displays all FAQ catagories
-- Automatically displays all FAQs regardless of their featured status
-- Automatically adds a search box if there are more than 10 FAQs in total
-    - You can change this on the component itself by changing 'Search minimum results'.
-    - Not shown if 'Search enabled' is unchecked
-- Automatically hides FAQs that are not translated in the current website langauge
-    - You can change this on the component itself by unchecking 'Translated FAQs only'.
+Use a single page at `/faq/:slug?`, where the optional slug filters the displayed category:
+
+```ini
+title = "All faqs with multi components"
+url = "/faq/:slug?"
+layout = "default"
+meta_title = "Show all faqs with multiple components"
+meta_description = "This page shows all faqs with multiple components. It uses the FAQ component and the faqCategories component to display the faqs and categories."
+is_hidden = 0
+
+[faqCategories]
+categorySlug = "{{ :slug }}"
+sort = "sort_order asc"
+categoryPage = "faq/category"
+
+[FaqsBySlug]
+categoryFilter = "{{ :slug }}"
+sort = "question asc"
+==
+<?php
+    function onEnd() {
+        // Optional - set the page title to the category name
+        if ($this->faqCategory) {
+            $this->page->title = $this->faqCategory->name;
+        }
+    }
+?>
+==
+<div class="categories">
+    {% component 'faqCategories' %}
+</div>
+
+<div class="faqs">
+    {% component 'FaqsBySlug' %}
+</div>
+```
+
+```ini
+title = "All FAQs"
+url = "/faq"
+layout = "default"
+meta_title = "Show all faqs"
+meta_description = "This page shows all faqs. It uses the FAQ component to display the faqs."
+is_hidden = 0
+
+[FAQ]
+sort = "sort_order asc"
+==
+<div>
+    <h1>All our faqs</h1>
+    {% component 'FAQ' %}
+</div>
+```
+
+Replace `faq/category` with the filename of your category CMS page. The **All** entry produced by `faqCategories` links to the page that contains the component, without category parameters; every other category links to `categoryPage` using its slug. When Winter.Translate is installed, category slug route parameters are translated with the locale picker.
+
+Both `FaqsBySlug` and `FAQ` support `sort`, `isFeatured`, `isTranslated` and `noFaqsMessage`. `FAQ` additionally supports `categoryId`, `isSearch` and `minSearchResults`.
+
+## FAQ variables
+
+Use [{{ `__SELF__` }}](https://wintercms.com/docs/plugin/components#referencing-self) when a page contains more than one FAQ component.
+
+`faqCategories` exposes:
+- `categories`: published category models, plus the synthetic **All** category. Each category has a `url` and `faqs_count`.
+- `currentCategorySlug`: the configured current route slug, suitable for marking the active link.
+
+`FaqsBySlug` and `FAQ` expose:
+- `faqs`: the matching FAQ collection.
+- `faqsPerCategory`: matching FAQs grouped by category, as used by the default partial.
+- `jsonLd`: the generated FAQPage JSON-LD string.
+- `noFaqsMessage`: the configured empty-state message.
+
+`FAQ` additionally exposes `isSearch`, `canShowSearch` and `searchQuery`. The latter contains the `q` query-string value used by the default AJAX search.
 
 ## Installation
 
 The plugin will be available on the WinterCMS Marketplace as soon as the WinterCMS team release it.
 
 ### Using composer
-Just run this command
+
 ```bash
 composer require aic/wn-faq-plugin
 ```
 
 ### Clone
-Clone this repo into your winter plugins folder.
+
+Clone this repository into your Winter plugins folder:
 
 ```bash
 cd plugins
 mkdir aic && cd aic
 git clone https://github.com/AIC-BV/wn-faq-plugin faq
 ```
-**In both cases, you will need to run `php artisan winter:up` to create plugin's database tables.**
-You can also log off and log back in to the backend to make sure the plugin is fully installed.
 
-## FAQ variables
+In both cases, run `php artisan winter:up` to create the plugin database tables. You can also log out and back in to the backend to ensure the plugin is fully installed.
 
-In the component itself you can use the following variables (note that you should prepend them with [{{ `__SELF__` }}](https://wintercms.com/docs/plugin/components#referencing-self) if you have multiple FAQ components on one page):  
+## Notes
 
-- items (array of items)
-    - name (= category name)
-    - faqs (array of faqs)
-        - id
-        - category_id
-        - is_published
-        - is_featured
-        - question
-        - answer
-        - created_at
-        - updated_at
-- isSearch (if true, searchbox is enabled)
-- searchLabel (label for the search field)
-- searchPlaceholder (placeholder for the search field)
-- minSearchResults (the minimum amount of results required for displaying the searchbox)
-- searchQuery (the querystring user used in the search box)
+- Winter.Translate is optional. Without it, the plugin works normally, but the `isTranslated` property has no effect.
+- The plugin includes no JavaScript or CSS; style the markup to match your website.
+- You can override [translations](https://wintercms.com/docs/plugin/localization#overriding), [default markup](https://wintercms.com/docs/cms/components#overriding-partials) and [the plugin itself](https://wintercms.com/docs/plugin/extending).
 
 ## Let me know what you think
 

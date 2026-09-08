@@ -1,0 +1,19 @@
+{% set categories = __SELF__.categories %}
+{% set categoryPage = __SELF__.categoryPage %}
+{% set currentCategorySlug = __SELF__.currentCategorySlug %}
+
+{% if categories|length > 0 %}
+    <nav class='faq-categories'>
+        <ul>
+            {% for category in categories %}
+                <li>
+                    <a href='{{ category.url }}'
+                        {{- currentCategorySlug == category.slug ? (' class="active"' | raw) : '' -}}
+                    >
+                        {{ category.name }} <span class="count">({{ category.faqs_count }})</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endif %}

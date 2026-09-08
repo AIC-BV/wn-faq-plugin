@@ -2,22 +2,40 @@
 #  List Behavior Config
 # ===================================
 
-title: aic.faq::lang.menu.categories
+# Model List Column configuration
 list: ~/plugins/aic/faq/models/categories/columns.yaml
 
+# Model Class name
 modelClass: Aic\Faq\Models\Categories
+
+# List Title
+title: aic.faq::lang.menu.categories
+
+# Link URL for each record
 recordUrl: aic/faq/categories/update/:id
+
+# Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
 
+# Records to display per page
 recordsPerPage: 50
+
+# Display checkboxes next to each record
 showCheckboxes: true
+
+# Display list configuration button
 showSetup: true
 
+# Default sort order
 defaultSort:
-    column: id
+    column: sort_order
     direction: asc
 
+# Toolbar widget configuration
 toolbar:
+    # Partial for toolbar buttons
     buttons: list_toolbar
+
+    # Search widget configuration
     search:
         prompt: backend::lang.list.search_prompt

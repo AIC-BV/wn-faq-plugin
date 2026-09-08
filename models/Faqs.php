@@ -4,13 +4,16 @@ namespace Aic\Faq\Models;
 
 use Backend\Facades\BackendAuth;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Schema;
 use Winter\Storm\Database\Model;
 use Winter\Storm\Database\Builder;
 use Winter\Storm\Support\Facades\DB;
 
 class Faqs extends Model
 {
+    use \Aic\Faq\Classes\Traits\HasPublishStatus;
     use \Winter\Storm\Database\Traits\Validation;
+    use \Winter\Storm\Database\Traits\Sortable;
 
     /**
      * @var string The database table used by the model.
@@ -37,6 +40,13 @@ class Faqs extends Model
     ];
 
     /**
+     * @var array Attribute casts, matching the boolean `is_featured` column.
+     */
+    protected $casts = [
+        'is_featured' => 'boolean',
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      * @var array
      */
@@ -58,11 +68,40 @@ class Faqs extends Model
      * @var array
      */
     public static $allowedSorting = [
+        // Sorting relationships will be available with Winter v1.2.13+
+        // 'sort_order asc',
+        // 'sort_order desc',
+        'question asc',
+        'question desc',
         'category_id asc',
         'category_id desc',
         'created_at asc',
-        'created_at desc'
+        'created_at desc',
+        'updated_at asc',
+        'updated_at desc',
+        'random',
     ];
+
+
+    /**
+     * Before validation event
+     */
+    public function beforeValidate()
+    {
+        if ($this->sort_order === null) {
+            $this->sort_order = static::where('category_id', $this->category_id)->max('sort_order') + 1;
+        }
+    }
+
+    /**
+     * Check whether Winter.Translate is available and its required tables exist.
+     */
+    protected static function canUseTranslateTables(): bool
+    {
+        return class_exists('Winter\\Translate\\Behaviors\\TranslatableModel')
+            && Schema::hasTable('winter_translate_locales')
+            && Schema::hasTable('winter_translate_attributes');
+    }
 
     //
     // Scopes
@@ -91,7 +130,7 @@ class Faqs extends Model
      * Scope a query to only include featured or not featured FAQs.
      *
      * @param  Builder  $query      QueryBuilder
-     * @param  int      $isFeatured Featured status (0 = not featured, 1 = featured, 2 = all)
+    * @param  int      $isFeatured Featured status (0 = not featured, 1 = featured)
      *
      * @return Builder              QueryBuilder
      */
@@ -123,14 +162,13 @@ class Faqs extends Model
      */
     public function scopeTranslatedOnly(Builder $query, bool $isTranslated): Builder
     {
-        // Only if Winter.Translate is installed
-        if (class_exists('Winter\Translate\Behaviors\TranslatableModel')) {
+        if (self::canUseTranslateTables()) {
             // get current and default locale
             $currentLocale = App::getLocale();
             $defaultLocale = DB::table('winter_translate_locales')->where('is_default', 1)->value('code');
 
             // get which FAQs can be shown
-            if ($currentLocale != $defaultLocale) {
+            if ($defaultLocale !== null && $currentLocale != $defaultLocale) {
                 $ids = DB::table('winter_translate_attributes')
                     ->where('model_type', 'Aic\Faq\Models\Faqs')
                     ->where('locale', $currentLocale)
@@ -155,14 +193,13 @@ class Faqs extends Model
      */
     public function scopeSearchQuery(Builder $query, string $searchQuery, array $searchableFields): Builder
     {
-        // if Winter.Translate is installed
-        if (class_exists('Winter\Translate\Behaviors\TranslatableModel')) {
+        if (self::canUseTranslateTables()) {
             // get current and default locale
             $currentLocale = App::getLocale();
             $defaultLocale = DB::table('winter_translate_locales')->where('is_default', 1)->value('code');
 
             // search on the FAQs in the correct language
-            if ($currentLocale != $defaultLocale) {
+            if ($defaultLocale !== null && $currentLocale != $defaultLocale) {
                 $ids = DB::table('winter_translate_attributes')
                     ->where('model_type', 'Aic\Faq\Models\Faqs')
                     ->where('locale', $currentLocale)
@@ -188,18 +225,16 @@ class Faqs extends Model
      */
     public function scopeSortFAQs(Builder $query, string $sort): Builder
     {
-        foreach (self::$allowedSorting as $sorter) {
-            // check if sorter is equal to sort
-            if ($sorter != $sort) {
-                continue;
-            };
-
-            // split sort method
-            $sort = explode(' ', $sort);
-
-            // sort the query
-            $query->orderBy($sort[0], $sort[1]);
+        if (!in_array($sort, self::$allowedSorting)) {
+            return $query;
         }
+
+        if ($sort === 'random') {
+            return $query->inRandomOrder();
+        }
+
+        [$column, $direction] = explode(' ', $sort);
+        $query->orderBy($column, $direction);
 
         return $query;
     }
@@ -217,7 +252,7 @@ class Faqs extends Model
         // merge settings with component default properties
         extract(array_merge([
             'categoryId' => 0,
-            'isFeatured' => 2,
+            'isFeatured' => null,
             'isSearch' => 1,
             'isTranslated' => 1,
             'isPublished' => 1,
@@ -227,8 +262,16 @@ class Faqs extends Model
         // set query
         $query->isPublished();
 
+        // Exclude FAQs attached to an unpublished category, keeping uncategorized FAQs
+        $query->where(function (Builder $query) {
+            $query->whereNull('category_id')
+                ->orWhereHas('category', function (Builder $query) {
+                    $query->where('is_published', 1);
+                });
+        });
+
         // Apply featured filter if a specific featured status is selected
-        if ($isFeatured !== 2) {
+        if ($isFeatured !== null) {
             $query->isFeatured($isFeatured);
         }
 
@@ -257,5 +300,27 @@ class Faqs extends Model
 
         // get FAQs based on the query
         return $query->get();
+    }
+
+    //
+    // Getters
+    //
+
+    /**
+     * Set the URL for this record instance
+     */
+    public function getFeaturedStatusOptions(): array
+    {
+        return \Aic\Faq\Classes\Enums\FeaturedStatusEnum::namesTranslated();
+    }
+
+    /**
+     * Get the question and category name for this record instance
+     */
+    public function getQuestionAndCategoryAttribute(): string
+    {
+        $categoryName = $this->category ? " ({$this->category->name})" : '';
+
+        return $this->question . $categoryName;
     }
 }

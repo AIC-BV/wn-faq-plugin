@@ -5,25 +5,35 @@
 fields:
 
     name:
-        label: aic.faq::lang.form.name
+        label: aic.faq::lang.models.category.label
         span: auto
 
-# secondaryTabs:
+    slug:
+        label: aic.faq::lang.models.general.slug
+        preset: name
+        span: auto
 
-#     fields:
+    is_published:
+        label: aic.faq::lang.models.general.published_status
+        type: balloon-selector
+        options: getPublishStatusOptions
+        default: 1
 
-#         created_at:
-#             label: aic.faq::lang.form.created_at
-#             type: datepicker
-#             mode: date
-#             format: Y/m/d
-#             minDate: now
-#             default: now
+secondaryTabs:
+    fields:
 
-#         updated_at:
-#             label: aic.faq::lang.form.updated_at
-#             type: datepicker
-#             mode: date
-#             format: Y/m/d
-#             minDate: now
-#             default: now
+        created_at:
+            label: aic.faq::lang.models.general.created_at
+            type: datepicker
+            mode: date
+            format: d/m/Y
+            span: full
+            disabled: true
+
+        updated_at:
+            label: aic.faq::lang.models.general.updated_at
+            type: datepicker
+            mode: date
+            format: Y/m/d
+            span: full
+            disabled: true

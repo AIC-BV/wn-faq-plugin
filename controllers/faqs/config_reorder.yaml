@@ -1,0 +1,17 @@
+# ===================================
+#  Reorder Behavior Config
+# ===================================
+
+# Reorder Title
+title: aic.faq::lang.controllers.faqs.reorder
+
+# Attribute name
+nameFrom: questionAndCategory
+
+# Model Class name
+modelClass: Aic\Faq\Models\Faqs
+
+# Toolbar widget configuration
+toolbar:
+    # Partial for toolbar buttons
+    buttons: reorder_toolbar

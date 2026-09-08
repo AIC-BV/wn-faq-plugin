@@ -1,16 +1,12 @@
-<?php namespace Aic\Faq\Tests;
+<?php
 
-use Aic\Faq\Models\Categories;
+namespace Aic\Faq\Tests\Models;
+
 use Aic\Faq\Models\Faqs;
-use PluginTestCase;
+use Aic\Faq\Tests\FaqPluginTestCase;
 
-class FaqsModelTest extends PluginTestCase
+class FaqsModelTest extends FaqPluginTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-    }
-
     public function testIsPublishedScopeReturnsOnlyPublishedForGuest(): void
     {
         $category = $this->createCategory('General');
@@ -94,7 +90,7 @@ class FaqsModelTest extends PluginTestCase
 
         $faqs = Faqs::listFrontEnd([
             'categoryId' => 0,
-            'isFeatured' => 2,
+            'isFeatured' => null,
             'isSearch' => 1,
             'isTranslated' => 0,
             'searchQuery' => 'Install',
@@ -105,35 +101,38 @@ class FaqsModelTest extends PluginTestCase
         $this->assertSame([$faqQuestionMatch->id, $faqAnswerMatch->id], $ids);
     }
 
-    public function testCategoryOptionsAreSortedByName(): void
+    public function testListFrontEndExcludesFaqsFromUnpublishedCategory(): void
     {
-        $this->createCategory('Zeta');
-        $this->createCategory('Alpha');
+        $publishedCategory = $this->createCategory('Published category', 1);
+        $unpublishedCategory = $this->createCategory('Unpublished category', 0);
 
-        $options = (new Categories())->getCategoryOptions();
+        $visibleFaq = $this->createFaq($publishedCategory->id, 1, 0, 'Visible question', 'Visible answer');
+        $this->createFaq($unpublishedCategory->id, 1, 0, 'Hidden by category', 'Hidden answer');
 
-        $this->assertSame(['Alpha', 'Zeta'], array_values($options));
+        $ids = Faqs::listFrontEnd([
+            'categoryId' => 0,
+            'isFeatured' => null,
+            'isSearch' => 0,
+            'isTranslated' => 0,
+        ])->pluck('id')->all();
+
+        $this->assertSame([$visibleFaq->id], $ids);
     }
 
-    private function createCategory(string $name): Categories
+    public function testListFrontEndKeepsUncategorizedFaqs(): void
     {
-        $category = new Categories();
-        $category->name = $name;
-        $category->save();
+        $unpublishedCategory = $this->createCategory('Unpublished category', 0);
 
-        return $category;
-    }
+        $uncategorizedFaq = $this->createFaq(null, 1, 0, 'Uncategorized question', 'Uncategorized answer');
+        $this->createFaq($unpublishedCategory->id, 1, 0, 'Hidden by category', 'Hidden answer');
 
-    private function createFaq(int $categoryId, int $isPublished, int $isFeatured, string $question, string $answer): Faqs
-    {
-        $faq = new Faqs();
-        $faq->category_id = $categoryId;
-        $faq->is_published = $isPublished;
-        $faq->is_featured = $isFeatured;
-        $faq->question = $question;
-        $faq->answer = $answer;
-        $faq->save();
+        $ids = Faqs::listFrontEnd([
+            'categoryId' => 0,
+            'isFeatured' => null,
+            'isSearch' => 0,
+            'isTranslated' => 0,
+        ])->pluck('id')->all();
 
-        return $faq;
+        $this->assertSame([$uncategorizedFaq->id], $ids);
     }
 }

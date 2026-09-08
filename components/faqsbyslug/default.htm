@@ -1,0 +1,11 @@
+{% set faqsPerCategory = __SELF__.faqsPerCategory %}
+
+<div class="aic-faqs">
+	{% partial '@items' faqsPerCategory=faqsPerCategory %}
+</div>
+
+{% if faqsPerCategory | length > 0 %}
+	{% put scripts %}
+	<script type="application/ld+json">{{ __SELF__.jsonLd | raw }}</script>
+	{% endput %}
+{% endif %}

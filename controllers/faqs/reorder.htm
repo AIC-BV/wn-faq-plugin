@@ -1,0 +1,10 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('aic/faq/faqs') ?>"><?= e(trans('aic.faq::lang.menu.faqs')) ?></a></li>
+        <li><?= e(trans('aic.faq::lang.controllers.faqs.reorder')) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<div style='padding: 0 20px 1px 20px;'>
+    <?= $this->reorderRender() ?>
+</div>

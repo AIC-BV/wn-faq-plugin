@@ -9,8 +9,14 @@ class Faqs extends Controller
 {
     public $implement = [
         \Backend\Behaviors\FormController::class,
-        \Backend\Behaviors\ListController::class
+        \Backend\Behaviors\ListController::class,
+        \Backend\Behaviors\ReorderController::class,
     ];
+
+    /**
+     * @var array Required permissions
+     */
+    public $requiredPermissions = ['aic.faq.manage_faqs'];
 
     /**
      * @var string Body class property used for customising the layout

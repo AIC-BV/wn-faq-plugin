@@ -4,10 +4,15 @@
     <a
         href="<?= Backend::url('aic/faq/categories/create') ?>"
         class="btn btn-primary wn-icon-plus">
-        <?= e(trans('aic.faq::lang.new.categories')) ?>
+        <?= e(trans('aic.faq::lang.controllers.categories.new')) ?>
     </a>
 
-    <?php if (Aic\Faq\Models\Categories::count() > 0): ?>
+    <!-- reorder -->
+    <a
+        href="<?= Backend::url('aic/faq/categories/reorder') ?>"
+        class="btn btn-secondary wn-icon-sort">
+        <?= e(trans('aic.faq::lang.controllers.categories.reorder')) ?>
+    </a>
 
     <!-- remove -->
     <button
@@ -24,6 +29,4 @@
         <?= e(trans('system::lang.plugins.remove')) ?>
     </button>
 
-    <?php endif ?>
-    
 </div>

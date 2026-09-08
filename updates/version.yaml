@@ -1,5 +1,9 @@
 1.0.0:
-    - Create faqs table
+    - 'First release'
     - create_faqs_table.php
-    - Create Categories table
     - create_categories_table.php
+1.1.0:
+    - 'Add components (Categories and Faqs)'
+    - 'Make categories slugable and sortable'
+    - 1.1.0/update_categories_table.php
+    - 1.1.0/update_faqs_table.php

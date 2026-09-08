@@ -1,0 +1,19 @@
+{% if faqsPerCategory | length > 0 %}
+    {% for categoryGroup in faqsPerCategory %}
+        <div class="faq-category">
+            <h2>{{ categoryGroup.name }}</h2>
+            <ul>
+            {% for faq in categoryGroup.faqs %}
+                <li>
+                    <details>
+                        <summary><span>{{ faq.question }}</span></summary>
+                        <div>{{ faq.answer | raw }}</div>
+                    </details>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class='no-faqs-message'>{{ __SELF__.noFaqsMessage }}</p>
+{% endif %}

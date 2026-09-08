@@ -2,16 +2,26 @@
 #  Form Behavior Config
 # ===================================
 
-name: aic.faq::lang.title.faqs
+# Record name
+name: aic.faq::lang.models.faq.label
+
+# Model Form Field configuration
 form: ~/plugins/aic/faq/models/faqs/fields.yaml
 
+# Model Class name
 modelClass: Aic\Faq\Models\Faqs
+
+# Default redirect location
 defaultRedirect: aic/faq/faqs
 
+# Create page
 create:
+    title: aic.faq::lang.controllers.faqs.create
     redirect: aic/faq/faqs/update/:id
     redirectClose: aic/faq/faqs
 
+# Update page
 update:
+    title: aic.faq::lang.controllers.faqs.update
     redirect: aic/faq/faqs/update/:id
     redirectClose: aic/faq/faqs

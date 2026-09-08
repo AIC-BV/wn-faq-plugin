@@ -1,9 +1,16 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
         <li><?= e(trans($this->pageTitle)) ?></li>
+        <?php
+        /*
+        Remove this to avoid additional database queries.
+        Replace it with a real statistics panel if necessary.
+        In this case, knowing the number of categories doesn't really add much value for the user.
         <li>
-            <span class='text-info'><strong><?= Aic\Faq\Models\Categories::all()->count() ?></strong> <?= e(trans('aic.faq::lang.form.total')) ?></span>
+            <span class='text-info'><strong><?= Aic\Faq\Models\Categories::all()->count() ?></strong> <?= e(trans('aic.faq::lang.models.general.total')) ?></span>
         </li>
+        */
+        ?>
     </ul>
 <?php Block::endPut() ?>
 

@@ -5,47 +5,40 @@
 columns:
 
     id:
-        label: aic.faq::lang.form.id
+        label: aic.faq::lang.models.general.id
         invisible: true
 
     category_id:
-        label: aic.faq::lang.form.category
+        label: aic.faq::lang.models.category.label
         relation: category
         select: name
-        default: -
         searchable: true
 
     question:
-        label: aic.faq::lang.form.question
+        label: aic.faq::lang.models.faq.question
         searchable: true
 
     answer:
-        label: aic.faq::lang.form.answer
+        label: aic.faq::lang.models.faq.answer
         searchable: true
         invisible: true
 
     is_featured:
-        label: aic.faq::lang.form.featured_status.title
-        type: partial
-        path: ~/plugins/aic/faq/models/faqs/_featured_status.htm
-        searchable: true
+        label: aic.faq::lang.models.general.featured_status
+        type: featuredstatus
 
     is_published:
-        label: aic.faq::lang.form.published_status.title
-        type: partial
-        path: ~/plugins/aic/faq/models/faqs/_published_status.htm
-        searchable: true
+        label: aic.faq::lang.models.general.published_status
+        type: publishedstatus
 
     created_at:
-        label: aic.faq::lang.form.created_at
+        label: aic.faq::lang.models.general.created_at
         type: datetime
         format: Y/m/d
-        searchable: true
         invisible: true
 
     updated_at:
-        label: aic.faq::lang.form.updated_at
+        label: aic.faq::lang.models.general.updated_at
         type: datetime
         format: Y/m/d
-        searchable: true
         invisible: true

@@ -1,15 +1,36 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
         <li><?= e(trans('aic.faq::lang.menu.faqs')) ?></li>
+        <?php
+        /*
+        Remove this to avoid additional database queries.
+        Replace it with a real statistics panel if necessary.
         <li>
-            <span class='text-info'><strong><?= Aic\Faq\Models\Faqs::all()->count() ?></strong> <?= e(trans('aic.faq::lang.form.total')) ?></span>
+            <span class='text-info'><strong><?= Aic\Faq\Models\Faqs::all()->count() ?></strong> <?= strtoupper(e(trans('aic.faq::lang.models.general.total'))) ?></span>
             &nbsp; <i class='icon-long-arrow-right'></i> &nbsp;
-            <span class='text-success'><i class='icon-check'></i> &nbsp;<strong><?= Aic\Faq\Models\Faqs::where('is_published', 1)->count() ?></strong> <?= e(trans('aic.faq::lang.form.published_status.published')) ?></span>
-            &nbsp; | &nbsp;
-            <span class='text-warning'><i class='icon-pencil'></i> &nbsp;<strong><?= Aic\Faq\Models\Faqs::where('is_published', 2)->count() ?></strong> <?= e(trans('aic.faq::lang.form.published_status.in_draft')) ?></span>
-            &nbsp; | &nbsp;
-            <span class='text-danger'><i class='icon-times'></i> &nbsp;<strong><?= Aic\Faq\Models\Faqs::where('is_published', 0)->count() ?></strong> <?= e(trans('aic.faq::lang.form.published_status.not_published')) ?></span>
+            <?php
+                // Get the count of each status in one query
+                $statusCounts = Aic\Faq\Models\Faqs::selectRaw('is_published, COUNT(*) as count')
+                    ->groupBy('is_published')
+                    ->pluck('count', 'is_published')
+                    ->toArray();
+
+                foreach ([1,2,0] as $status) {
+                    $count = $statusCounts[$status] ?? 0;
+                    $cssColor = $status == 1 ? 'success' : ($status == 2 ? 'warning' : 'danger');
+                    $icon = $status == 1 ? 'check' : ($status == 2 ? 'pencil' : 'times');
+                    $statusName = \Aic\Faq\Classes\Enums\PublishStatusEnum::nameTranslated($status);
+
+                    echo "<span class='text-{$cssColor}'><i class='icon-{$icon}'></i> &nbsp;<strong>{$count}</strong> ".e($statusName)."</span>";
+
+                    if ($status !== 0) {
+                        echo " &nbsp; | &nbsp; ";
+                    }
+                }
+            ?>
         </li>
+        */
+        ?>
     </ul>
 <?php Block::endPut() ?>
 

@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - psr-fix
+      - add-components
   pull_request:
 
 jobs:

@@ -2,7 +2,10 @@
 
 namespace Aic\Faq;
 
+use Aic\Faq\Console\ScaffoldCommand;
 use Backend\Facades\Backend;
+use Backend\Models\UserRole;
+use Illuminate\Support\Facades\Lang;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -20,6 +23,14 @@ class Plugin extends PluginBase
             'author'      => 'Meindert Stijfhals',
             'icon'        => 'icon-question-circle'
         ];
+    }
+
+    /**
+     * Register method, called when the plugin is first registered.
+     */
+    public function register(): void
+    {
+        $this->registerConsoleCommand('scaffold:aic.faq', ScaffoldCommand::class);
     }
 
     /**
@@ -59,10 +70,16 @@ class Plugin extends PluginBase
     public function registerPermissions(): array
     {
         return [
-            'aic.faq.*' => [
+            'aic.faq.manage_categories' => [
                 'tab' => 'aic.faq::lang.menu.faqs',
-                'label' => 'aic.faq::lang.permission.faq'
-            ]
+                'label' => 'aic.faq::lang.permissions.manage_categories',
+                'roles' => [UserRole::CODE_DEVELOPER, UserRole::CODE_PUBLISHER],
+            ],
+            'aic.faq.manage_faqs' => [
+                'tab' => 'aic.faq::lang.menu.faqs',
+                'label' => 'aic.faq::lang.permissions.manage_faqs',
+                'roles' => [UserRole::CODE_DEVELOPER, UserRole::CODE_PUBLISHER],
+            ],
         ];
     }
 
@@ -72,7 +89,36 @@ class Plugin extends PluginBase
     public function registerComponents(): array
     {
         return [
-            'Aic\Faq\Components\Faqs' => 'FAQ'
+            'Aic\Faq\Components\Categories' => 'faqCategories',
+            'Aic\Faq\Components\Faqs' => 'FAQ',
+            'Aic\Faq\Components\FaqsBySlug' => 'FaqsBySlug',
+        ];
+    }
+
+    /**
+     * Register custom column types for the backend list view
+     */
+    public function registerListColumnTypes(): array
+    {
+        return [
+            'publishedstatus' => function ($value) {
+                $class = [
+                    0 => 'text-danger',
+                    1 => 'text-success',
+                    2 => 'text-warning'
+                ];
+
+                return '<span class="wn-icon-circle '. ($class[(int) $value] ?? '') .'">'.
+                    \Aic\Faq\Classes\Enums\PublishStatusEnum::nameTranslated((int) $value)
+                    .'</span>';
+            },
+            'featuredstatus' => function ($value) {
+                $isFeatured = (bool) $value;
+
+                return '<span class="wn-icon-circle '. ($isFeatured ? 'text-success' : '') .'">'.
+                    Lang::get('backend::lang.list.column_switch_'. ($isFeatured ? 'true' : 'false'))
+                    .'</span>';
+            }
         ];
     }
 }

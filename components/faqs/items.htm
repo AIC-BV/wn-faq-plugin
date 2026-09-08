@@ -1,0 +1,22 @@
+{% set searchTerm = __SELF__.searchQuery %}
+{% if faqsPerCategory | length > 0 %}
+    {% for categoryGroup in faqsPerCategory %}
+        <div class="faq-category">
+            <h2>{{ categoryGroup.name }}</h2>
+            <ul>
+            {% for faq in categoryGroup.faqs %}
+                {% set question = searchTerm ? __SELF__.highlightPlainText(faq.question, searchTerm) : faq.question | e %}
+                {% set answer = searchTerm ? __SELF__.highlightHtml(faq.answer, searchTerm) : faq.answer %}
+                <li>
+                    <details>
+                        <summary><span>{{ question | raw }}</span></summary>
+                        <div>{{ answer | raw }}</div>
+                    </details>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+{% else %}
+    <p class='no-faqs-message'>{{ __SELF__.noFaqsMessage }}</p>
+{% endif %}

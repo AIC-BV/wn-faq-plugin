@@ -2,16 +2,26 @@
 #  Form Behavior Config
 # ===================================
 
-name: aic.faq::lang.title.categories
+# Record name
+name: aic.faq::lang.models.category.label
+
+# Model Form Field configuration
 form: ~/plugins/aic/faq/models/categories/fields.yaml
 
+# Model Class name
 modelClass: Aic\Faq\Models\Categories
+
+# Default redirect location
 defaultRedirect: aic/faq/categories
 
+# Create page
 create:
+    title: aic.faq::lang.controllers.categories.create
     redirect: aic/faq/categories/update/:id
     redirectClose: aic/faq/categories
 
+# Update page
 update:
+    title: aic.faq::lang.controllers.categories.update
     redirect: aic/faq/categories/update/:id
     redirectClose: aic/faq/categories

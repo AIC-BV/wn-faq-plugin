@@ -5,88 +5,166 @@ return [
         'name' => 'FAQ',
         'description' => 'Frequently Asked Questions. Questions and answers. Assign them to a category, add featured statusses and manage which ones are displayed on the frontend.'
     ],
-    'button' => [
-        'return' => 'Return'
-    ],
+
     'menu' => [
         'faqs' => 'FAQs',
         'categories' => 'Categories'
     ],
-    'title' => [
-        'faqs' => 'FAQ',
-        'categories' => 'Category'
-    ],
-    'new' => [
-        'faqs' => 'New FAQ',
-        'categories' => 'New category'
-    ],
-    'form' => [
-        'total' => 'TOTAL',
-        'id' => 'ID',
-        'name' => 'Name',
-        'created_at' => 'Created at',
-        'updated_at' => 'Updated at',
-        'question' => 'Question',
-        'answer' => 'Answer',
-        'category' => 'Category',
-        'no_category' => '-',
-        'featured_status' => [
-            'title' => 'Featured',
-            'featured' => 'Featured',
-            'not_featured' => 'Not featured'
+
+    'controllers' => [
+        'faqs' => [
+            'new' => 'New FAQ',
+            'create' => 'Create FAQ',
+            'update' => 'Update FAQ',
+            'reorder' => 'Reorder FAQs',
+            'return_to_faqs' => 'Return to FAQs',
         ],
-        'published_status' => [
-            'title' => 'Published',
-            'published' => 'Published',
-            'not_published' => 'Hidden',
-            'in_draft' => 'In progress'
+        'categories' => [
+            'new' => 'New category',
+            'create' => 'Create category',
+            'update' => 'Update category',
+            'reorder' => 'Reorder categories',
+            'return_to_categories' => 'Return to categories',
         ]
     ],
-    'component' => [
-        'title' => 'FAQs',
-        'description' => 'List of FAQs',
-        'settings' => [
-            'sort' => [
-                'title'       => 'Sort',
-                'description' => 'Choose the display order of the FAQs',
-                'options'     => [
-                    'category_id_asc'  => 'Category ascending',
-                    'category_id_desc' => 'Category descending',
-                    'created_at_asc'   => 'Created at ascending',
-                    'created_at_desc'  => 'Created at descending'
-                ]
+
+    'components' => [
+        'categories' => [
+            'title' => 'FAQ Categories',
+            'description' => 'List of FAQ categories',
+            'all_label' => 'All questions',
+            'properties' => [
+                'links' => 'Links',
+                'category_page' => [
+                    'title' => 'Category page',
+                    'description' => 'Page that shows the FAQs of one category'
+                ],
+                'faq_page' => [
+                    'title' => 'Overview page',
+                    'description' => 'Page that shows all FAQs'
+                ],
+                'slug' => [
+                    'title' => 'Category slug',
+                    'description' => 'Slug of the active category, used to highlight it in the list'
+                ],
+                'sort' => [
+                    'title'       => 'Sort',
+                    'description' => 'Choose the display order of the categories',
+                ],
             ],
-            'category' => [
-                'title' => 'Category',
-                'description' => 'Choose which category to display',
-                'all' => 'All categories',
-                'no_category_label' => 'Other'
+        ],
+        'faqs' => [
+            'title' => 'FAQs',
+            'description' => 'List of FAQs',
+            'search_button' => 'Search',
+            'search_placeholder' => 'What are you looking for?',
+            'no_results' => 'No FAQ found.',
+            'properties' => [
+                'search_group' => 'Search',
+                'category' => [
+                    'title' => 'Category',
+                    'description' => 'Choose which category to display',
+                    'all' => 'All categories',
+                    'no_category_label' => 'Other',
+                ],
+                'featured' => [
+                    'title' => 'FAQs',
+                    'description' => 'Choose which FAQs to display',
+                    'options' => [
+                        0 => 'All except featured',
+                        1 => 'Featured only',
+                        '' => 'All FAQs'
+                    ],
+                ],
+                'minSearchResults' => [
+                    'title' => 'Search minimum results',
+                    'description' => 'Minimum amount of results for the search field to show. Must be a number',
+                    'validationMessage' => 'Must be a number',
+                ],
+                'no_faqs' => [
+                    'title'       => 'No FAQs message',
+                    'description' => 'Message to show when no FAQs are found.',
+                ],
+                'search' => [
+                    'title' => 'Search enabled',
+                    'description' => 'Enable the search functionality',
+                ],
+                'sort' => [
+                    'title'       => 'Sort',
+                    'description' => 'Choose the display order of the FAQs',
+                ],
+                'translated' => [
+                    'title' => 'Translated FAQs only',
+                    'description' => 'Show only the translated FAQs in the current language',
+                ],
             ],
-            'featured' => [
-                'title' => 'FAQs',
-                'description' => 'Choose which FAQs to display',
-                'all' => 'All FAQs',
-                'featured' => 'Featured FAQs',
-                'not_featured' => 'All except featured FAQs'
+        ],
+        'faqs_by_slug' => [
+            'title' => 'FAQs by category slug',
+            'description' => 'List FAQs filtered by a category slug',
+            'properties' => [
+                'category_filter' => [
+                    'title' => 'Category slug',
+                    'description' => 'Category slug or route parameter (for example {{ :slug }}) used to filter FAQs',
+                ],
             ],
-            'translated' => [
-                'title' => 'Translated FAQs only',
-                'description' => 'Show only the translated FAQs in the current language'
-            ],
-            'search' => [
-                'title' => 'Search enabled',
-                'description' => 'Enable the search functionality',
-                'button_label' => 'Search',
-                'input_placeholder' => 'What are you looking for?'
-            ],
-            'minSearchResults' => [
-                'title' => 'Search minimum results',
-                'description' => 'Minimum amount of results for the search field to show. Must be a number',
-                'validationMessage' => 'Must be a number'
-            ]
+        ],
+    ],
+
+    'models' => [
+        'general' => [
+            'id' => 'ID',
+            'name' => 'Name',
+            'none_options' => '-- None --',
+            'published_status' => 'Published',
+            'slug' => 'Slug',
+            'total' => 'Total',
+            'created_at' => 'Created at',
+            'updated_at' => 'Updated at',
+            'featured_status' => 'Featured',
+        ],
+        'category' => [
+            'label' => 'Category',
+            'label_plural' => 'Categories',
+        ],
+        'faq' => [
+            'label' => 'FAQ',
+            'label_plural' => 'FAQs',
+            'question' => 'Question',
+            'answer' => 'Answer',
         ]
     ],
-    'permission' => [
-        'faq' => 'Manage FAQ'
-    ]
+
+    'permissions' => [
+        'manage_categories' => 'Manage FAQ Categories',
+        'manage_faqs' => 'Manage FAQs',
+    ],
+
+    'enums' => [
+        'featured_status' => [
+            '0' => 'Not featured',
+            '1' => 'Featured',
+        ],
+        'publish_status' => [
+            0 => 'Not published',
+            1 => 'Published',
+            2 => 'In draft'
+        ],
+    ],
+
+    'sorting' => [
+        'sort_order_asc'  => 'Sort order ↑ (asc)',
+        'sort_order_desc' => 'Sort order ↓ (desc)',
+        'question_asc'  => 'Question A→Z',
+        'question_desc' => 'Question Z→A',
+        'name_asc'  => 'Name A→Z',
+        'name_desc' => 'Name Z→A',
+        'category_id_asc'  => 'Category (id) ↑ (asc)',
+        'category_id_desc' => 'Category (id) ↓ (desc)',
+        'created_at_asc'   => 'Created at ↑ (asc)',
+        'created_at_desc'  => 'Created at ↓ (desc)',
+        'updated_at_asc'   => 'Updated at ↑ (asc)',
+        'updated_at_desc'  => 'Updated at ↓ (desc)',
+        'random'           => 'Random',
+    ],
 ];
